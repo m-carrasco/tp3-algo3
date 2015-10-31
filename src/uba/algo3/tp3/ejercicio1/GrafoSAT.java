@@ -1,10 +1,17 @@
 package uba.algo3.tp3.ejercicio1;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
 
 public class GrafoSAT {
 	private ArrayList<NodoSAT> grafo;
+	
+	public NodoSAT getNodo(Integer i)
+	{
+		return grafo.get(i);
+	}
 	
 	public GrafoSAT(GrafoMaterias g)
 	{
@@ -21,16 +28,14 @@ public class GrafoSAT {
 		{
 			ArrayList<Integer> colores = n.getColores();
 			
-			for(int j = 0; j < colores.size(); j = j+2)
+			for(int j = 0; j < colores.size()*2; j = j+2)
 			{
 				NodoSAT falso = new NodoSAT();
 				NodoSAT verdadero = new NodoSAT();
 				falso.setAfirmacion(false);
 				verdadero.setAfirmacion(true);
 				grafo.set(i*4+j, verdadero);
-				grafo.set(i*4+j+1, falso);
-
-				
+				grafo.set(i*4+j+1, falso);				
 			}
 			
 			if (colores.size() == 2)
@@ -44,6 +49,11 @@ public class GrafoSAT {
 				grafo.get(i*4+3).addVecino(i*4);
 				grafo.get(i*4+1).addVecino(i*4+2);
 				grafo.get(i*4+2).addVecino(i*4+1);
+				
+			} else 
+			{
+				// un solo color
+				grafo.get(i*4+1).addVecino(i*4);
 				
 			}
 			
@@ -61,7 +71,7 @@ public class GrafoSAT {
 		
 	}
 
-	public void InvertirAristas()
+	private void InvertirAristas()
 	{
 		ArrayList<NodoSAT> invertido = new ArrayList<NodoSAT>(grafo.size());
 		
@@ -80,22 +90,22 @@ public class GrafoSAT {
 		grafo = invertido;
 	}
 	
-	public void DFSVuelta(Integer idxNodo, ArrayList<Boolean> visitado, UnionFind cc)
+	private void DFSVuelta(Integer idxNodo, ArrayList<Boolean> visitado, CompFuerteConexas res, Integer cc)
 	{
 		visitado.set(idxNodo, true);
 	
+		res.setearCFCNodo(idxNodo, cc);
 		for (Integer vecino : grafo.get(idxNodo).getVecinos())
 		{
 			if (!visitado.get(vecino)){
 				
-				cc.unionSet(idxNodo, vecino);
-				DFSVuelta(vecino, visitado, cc);
+				res.setearCFCNodo(vecino, cc);
+				DFSVuelta(vecino, visitado, res, cc);
 			}
-				
 		}
 	}
 	
-	public void DFSIda(Integer idxNodo, ArrayList<Boolean> visitado, Stack<Integer> pila)
+	private void DFSIda(Integer idxNodo, ArrayList<Boolean> visitado, Stack<Integer> pila)
 	{
 		visitado.set(idxNodo, true);
 	
@@ -111,17 +121,18 @@ public class GrafoSAT {
 	}
 	
 	
-	public UnionFind CC()
+	private CompFuerteConexas CC()
 	{
 		Stack<Integer> pila = new Stack<Integer>();
-		UnionFind cc = new UnionFind(grafo.size());
-		
+		CompFuerteConexas res = new CompFuerteConexas(grafo.size());
 		ArrayList<Boolean> visitados = new ArrayList(grafo.size());
-		for (Integer i = 0; i < grafo.size(); i++)
+		
+		for (Integer i = 0; i < grafo.size(); i++){
 			visitados.add(false);
+		}
 		
 		for (Integer i = 0; i < visitados.size(); i++)
-			if (!visitados.get(i))
+			if (!visitados.get(i) && grafo.get(i) != null)
 				DFSIda(i, visitados, pila);
 		
 		InvertirAristas();
@@ -129,13 +140,104 @@ public class GrafoSAT {
 		for (Integer i = 0; i < grafo.size(); i++)
 			visitados.add(false);
 		
+		Integer cc = -1;
 		while (pila.size() > 0)
 		{
 			Integer n = pila.pop();
-			DFSVuelta(n, visitados, cc);
+			
+			if (!visitados.get(n)){
+				cc++;
+				DFSVuelta(n, visitados, res, cc);	
+			}
 		}
 		
-		return cc;
+		// O(n)
+		res.agruparPorCompFuerConexa();
+		
+		return res;
+	}
+	
+	private boolean Satisfacible(ArrayList<Integer> cc)
+	{
+		for (Integer i = 0; i < cc.size(); i = i + 2)
+		{
+			// si es -1 es que el nodo no existe.
+			// se trata de una materia de un solor color.
+			if (cc.get(i) != -1 && cc.get(i) == cc.get(i+1))
+				return false;
+		}
+		
+		return true;
+	}
+	
+	private ArrayList<LinkedList<Integer>> AdyacenciaEntreCompFuertConex(CompFuerteConexas cfc)
+	{
+		ArrayList<LinkedList<Integer>> res = new ArrayList<LinkedList<Integer>>(cfc.getCantCFC());
+		
+		for (Integer i = 0; i < cfc.getCantCFC(); i++)
+			res.add(new LinkedList<Integer>());
+
+		// Recorro todos los nodos del grafo por Comp Fuert Conexa. 
+		// En total recorro toda la lista de adyacencia del grafo sat. O(N + M)
+		// Pero hay que tener en cuenta la creacion del arrelgo.
+		for (Integer i = 0; i < cfc.getCantCFC(); i++)
+		{
+			Boolean[] revisados = new Boolean[cfc.getCantCFC()];
+			
+			List<Integer> nodosXCFC = cfc.getnodosPorCompFuertConexa(i);
+			
+			for (Integer idxNodo : nodosXCFC)
+			{	
+				NodoSAT nodo = grafo.get(idxNodo);
+				
+				for (Integer idxVecino : nodo.getVecinos())
+				{
+					if (cfc.getCFCNodo(idxVecino) != cfc.getCFCNodo(idxNodo))
+					{
+						if (!revisados[cfc.getCFCNodo(idxVecino)])
+						{
+							res.get(cfc.getCFCNodo(idxNodo)).add(cfc.getCFCNodo(idxVecino));
+							revisados[cfc.getCFCNodo(idxVecino)] = true;
+						}
+					}
+				}
+			}
+		}
+		
+		return res;
+	}
+	
+	boolean HayCamino(Integer comp1, Integer comp2, ArrayList<LinkedList<Integer>> caminos)
+	{		
+		for (Integer compVecina : caminos.get(comp1))
+		{
+			if (compVecina == comp2)
+				return true;
+			
+			if (HayCamino(compVecina, comp2, caminos))
+				return true;
+		}
+		return false;
+	}
+	
+	private void Pintar(ArrayList<LinkedList<Integer>> caminos,CompFuerteConexas cc){
+		
+		for(Integer i = 0; i < grafo.size(); i=i+2){
+			NodoSAT n1 = grafo.get(i);
+			NodoSAT n2 = grafo.get(i+1);
+			if(n1!=null){
+				Integer comp1 = cc.getCFCNodo(i);
+				Integer comp2 = cc.getCFCNodo(i+1);
+				if(HayCamino(comp1,comp2,caminos)){
+					n1.setAfirmacion(false);
+					n2.setAfirmacion(true);
+				}
+				else{
+					n2.setAfirmacion(false);
+					n1.setAfirmacion(true);
+				}
+			}
+		}
 	}
 	
 }

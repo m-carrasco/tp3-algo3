@@ -13,6 +13,10 @@ public class Test {
 		visitados.add(1,false);
 		visitados.add(3,false);
 		System.out.println(visitados);
+		
 	}
+	
+
+	
 
 }

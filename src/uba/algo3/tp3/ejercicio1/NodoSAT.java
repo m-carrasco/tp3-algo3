@@ -5,13 +5,13 @@ import java.util.List;
 
 public class NodoSAT {
 
+	private List<Integer> vecinos = new LinkedList<Integer>();
+	private boolean afirmacion; //si es true es afirmacion, sino es negacion.
+	
 	public List<Integer> getVecinos() {
 		return vecinos;
 	}
 
-	private List<Integer> vecinos = new LinkedList<Integer>();
-	private boolean afirmacion; //si es true es afirmacion, sino es negacion.
-	
 	public boolean isAfirmacion() {
 		return afirmacion;
 	}
