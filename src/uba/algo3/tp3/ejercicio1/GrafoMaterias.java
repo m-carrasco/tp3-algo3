@@ -23,6 +23,11 @@ public class GrafoMaterias {
 		grafo.set(id, nodo);
 	}
 	
+	public Integer getCantidadColoresNodo(Integer id)
+	{
+		return getNodo(id).getColores().size();
+	}
+	
 	public Nodo getNodo(int id) {
 		return grafo.get(id);
 	}
