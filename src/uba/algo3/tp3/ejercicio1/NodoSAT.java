@@ -6,17 +6,21 @@ import java.util.List;
 public class NodoSAT {
 
 	private List<Integer> vecinos = new LinkedList<Integer>();
-	private boolean afirmacion; //si es true es afirmacion, sino es negacion.
+	private boolean voyYo; //si es true es afirmacion, sino es negacion.
 	
+	public NodoSAT()
+	{
+		voyYo = false;
+	}
 	public List<Integer> getVecinos() {
 		return vecinos;
 	}
 
-	public boolean isAfirmacion() {
-		return afirmacion;
+	public boolean getVoyYo() {
+		return voyYo;
 	}
-	public void setAfirmacion(boolean afirmacion) {
-		this.afirmacion = afirmacion;
+	public void setVoyYo(boolean afirmacion) {
+		this.voyYo = afirmacion;
 	}
 	
 	public void addVecino(Integer vecino){

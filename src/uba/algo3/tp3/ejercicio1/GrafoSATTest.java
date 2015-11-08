@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 import org.junit.Test;
 
@@ -52,7 +51,7 @@ public class GrafoSATTest {
 		for (NodoSAT n : gs.getGrafo())
 		{
 			if (n != null)
-				System.out.println(n.isAfirmacion());
+				System.out.println(n.getVoyYo());
 		}
 	}
 	

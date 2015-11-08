@@ -37,8 +37,6 @@ public class GrafoSAT {
 			{
 				NodoSAT falso = new NodoSAT();  // O(1)
 				NodoSAT verdadero = new NodoSAT();  // O(1)
-				falso.setAfirmacion(false); // O(1)
-				verdadero.setAfirmacion(true); // O(1)
 				grafo.set(i*4+j, verdadero); // O(1)
 				grafo.set(i*4+j+1, falso);	// O(1)	
 			}
@@ -99,7 +97,7 @@ public class GrafoSAT {
 			
 			if (invertido.get(idx) != null) // si invertido no es null n tampoco.
 			{	
-				invertido.get(idx).setAfirmacion(n.isAfirmacion());
+				invertido.get(idx).setVoyYo(n.getVoyYo());
 				for (Integer vecino : n.getVecinos())
 					invertido.get(vecino).addVecino(idx);
 			}
@@ -152,7 +150,7 @@ public class GrafoSAT {
 	{
 		Stack<Integer> pila = new Stack<Integer>();
 		CompFuerteConexas res = new CompFuerteConexas(grafo.size()); //O(n)
-		ArrayList<Boolean> visitados = new ArrayList(grafo.size()); // O(n)
+		ArrayList<Boolean> visitados = new ArrayList<Boolean>(grafo.size()); // O(n)
 		
 		for (Integer i = 0; i < grafo.size(); i++){
 			visitados.add(false);
@@ -260,7 +258,7 @@ public class GrafoSAT {
 		for (Integer nodeIdx : nodos)
 		{
 			NodoSAT nodo = grafo.get(nodeIdx);
-			nodo.setAfirmacion(color);
+			nodo.setVoyYo(color);
 		}
 		
 		pintados[cfcIdx] = true;
@@ -313,7 +311,7 @@ public class GrafoSAT {
 					//PintarCompConexasImplicadasPor(cfcIdx, true); 
 				} else {
 					// mi negacion ya fue pintada
-					if (!negPrimero.isAfirmacion())
+					if (!negPrimero.getVoyYo())
 					{
 						// mi negacion es falsa yo soy verdadero
 						PintarCompConexa(cfcIdx, true, cc, pintados);
@@ -322,7 +320,7 @@ public class GrafoSAT {
 					} else
 						PintarCompConexa(cfcIdx, false, cc, pintados);
 				}
-			} else if (primero.isAfirmacion())
+			} else if (primero.getVoyYo())
 			{
 				PintarCompConexasAdyacentes(cfcIdx, true, cc, pintados, caminos);
 			}
