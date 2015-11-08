@@ -11,6 +11,17 @@ public class CompFuerteConexas {
 	
 	private Integer ultimaCfc;
 	
+	public ArrayList<Integer> getCFCPorNodo()
+	{
+		return nodos;
+		
+	}
+	
+	public ArrayList<LinkedList<Integer>> getNodosPorCompFuertConex()
+	{
+		return nodosPorCompFuertConex;
+	}
+	
 	public CompFuerteConexas(Integer nodes)
 	{
 		nodos = new ArrayList<Integer>(nodes);
