@@ -31,6 +31,11 @@ public class GrafoSAT {
 		
 		for(Nodo n : g.getGrafo()) //para cada nodo de la lista de nodos del grafo   O(#materias + #superpociosiones)
 		{
+			if (n == null)
+			{
+				i++;
+				continue;
+			}
 			ArrayList<Integer> colores = n.getColores(); //O(1)
 			
 			for(int j = 0; j < colores.size()*2; j = j+2)  // O(4*1)

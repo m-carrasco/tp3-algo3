@@ -8,7 +8,7 @@ import uba.algo3.tp3.ejercicio1.*;
 public class ListColoring {
 
 	
-	private void AgregarColores(Nodo m, Integer materiaIdx, GrafoMaterias input, Integer i, boolean par)
+	private static void AgregarColores(Nodo m, Integer materiaIdx, GrafoMaterias input, Integer i, boolean par)
 	{
 		ArrayList<Integer> colores = new ArrayList<Integer>();
 		if (par || !(i == input.getCantidadColoresNodo(materiaIdx) - 1))
@@ -21,61 +21,48 @@ public class ListColoring {
 		m.setColores(colores);
 		
 	}
-	public boolean recursion(GrafoMaterias input, GrafoMaterias materia, Integer materiaIdx, Integer[] res)
+	public static boolean recursion(GrafoMaterias input, GrafoMaterias materia, Integer idx, Integer[] nodos)
 	{
-		if (input.getGrafo().size() == materia.getGrafo().size())
-		{
-			Integer[] t = TwoListColoring.solve(input);
-			if (t != null)
-			{
-				res = t;
-				return true;
-			}
-			
-			return false;
-		}
 		
-		// materia
-		Nodo m = new Nodo();
-		List<Integer> vecinos = input.getNodo(materiaIdx).getVecinos();
+		// nodos es un array de indices de nodos en el grafo input. Las posiciones del array marcan el orden en el que los recorremos
 		
-		materia.getGrafo().set(materiaIdx, m);
 		
-		List<Integer> noVecinosEnRecursion = new LinkedList<Integer>();
+		Integer idxInput = nodos[idx];
+		// REFERENCIA A INPUT
+		Nodo nuevom = new Nodo();
+		Nodo m = input.getNodo(idxInput);
 		
+		List<Integer> vecinos = m.getVecinos();
+		materia.getGrafo().set(idxInput, nuevom);
+		
+		//Se linkea el nuevo nodo con sus vecinos existentes
 		for (Integer vecino : vecinos)
 		{
 			if (materia.getNodo(vecino) != null)
 			{
 				// me linkeo doble
-				materia.getNodo(vecino).addVecinos(materiaIdx);
-				m.addVecinos(vecino);
-			} else
-			{
-				noVecinosEnRecursion.add(vecino);
+				materia.getNodo(vecino).addVecinos(idxInput);
+				materia.getNodo(idxInput).addVecinos(vecino);
 			}
 		}
 		
-		boolean par = input.getCantidadColoresNodo(materiaIdx) % 2 == 0;
+		boolean par = m.getColores().size() % 2 == 0;
 		
-		for (Integer i = 0; i < input.getCantidadColoresNodo(materiaIdx); i = i+2)
+		for (Integer i = 0; i < m.getColores().size(); i = i+2)
 		{
-			AgregarColores(m, materiaIdx, input, i, par);
+			AgregarColores(materia.getGrafo().get(idxInput), idxInput, input, i, par);
 			
 			if (!TwoListColoring.esSastifacible(materia))
 				continue;
-			
-			for (Integer vecino : noVecinosEnRecursion)
-			{
-				// agrego la arista a vecino para el grafo materias.
-				if (recursion(input, materia, vecino, res))
-					return true;
-			}
-			
-			// En la proxima se pisan los colores
+			if(idx == nodos.length -1)
+				return true;
+			else if(recursion(input, materia, idx+1, nodos))
+				return true;
 		}
-
-		materia.setNodo(materiaIdx, null);
+		
+		// Si sali del for es que todos mis vecinos fallaron al pintarse. Me tengo que sacar y devolver false
+		//Me saco del materias
+		materia.setNodo(idxInput, null);
 		
 		for (Integer vecino : vecinos)
 		{
@@ -85,25 +72,6 @@ public class ListColoring {
 				((LinkedList<Integer>) materia.getNodo(vecino).getVecinos()).removeLast();
 			}
 		}
-		
-		/*for (Integer i = 0; i < (colores(materiaIdx)+1)/2; i++)
-		{
-			Agregar materiaIdx a materias con los dos colores
-			if (!resolver2Sat(materia))
-			{
-				Sacar materia;
-				continue;
-			} 
-
-			// NO REPETIR ARISTAS 
-			for (vecino : vecinos(materiaIdx))
-			{
-				if (Recursion(input, materia, vecino))
-					return true;
-			}
-			Sacar materiaIdx
-		}*/
-		
 		return false;	
 	}
 }
