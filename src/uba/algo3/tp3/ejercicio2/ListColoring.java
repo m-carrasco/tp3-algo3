@@ -2,11 +2,36 @@ package uba.algo3.tp3.ejercicio2;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import uba.algo3.tp3.ejercicio1.*;
 
 public class ListColoring {
 
+	private static Integer[] solve(GrafoMaterias input)
+	{
+		List<List<Integer>> cc = input.BFS();
+		
+		GrafoMaterias res = new GrafoMaterias(input.getGrafo().size());
+
+		for (List<Integer> nodosEnCC : cc) //cada posicion de cc es una lista de los nodos de la componente conexa correspondiente
+		{
+			Integer[] arrNodos = new Integer[nodosEnCC.size()];
+					
+			Integer j = 0;
+			for (Integer nodoIdx : nodosEnCC){
+				arrNodos[j] = nodoIdx;
+				j++;
+			}
+			
+			// aborto si una componente conexa no es satisfacible.
+			if (!ListColoring.recursion(input, res, 0, arrNodos))
+				return null;
+		}	
+		
+		
+		return TwoListColoring.solve(res);
+	}
 	
 	private static void AgregarColores(Nodo m, Integer materiaIdx, GrafoMaterias input, Integer i, boolean par)
 	{
@@ -21,6 +46,7 @@ public class ListColoring {
 		m.setColores(colores);
 		
 	}
+	
 	public static boolean recursion(GrafoMaterias input, GrafoMaterias materia, Integer idx, Integer[] nodos)
 	{
 		
