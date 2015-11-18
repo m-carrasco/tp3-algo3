@@ -8,7 +8,7 @@ import uba.algo3.tp3.ejercicio1.*;
 
 public class ListColoring {
 
-	private static Integer[] solve(GrafoMaterias input)
+	public static Integer[] solve(GrafoMaterias input)
 	{
 		List<List<Integer>> cc = input.BFS();
 		

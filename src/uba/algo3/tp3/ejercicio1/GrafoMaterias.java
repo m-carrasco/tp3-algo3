@@ -49,10 +49,8 @@ public class GrafoMaterias {
 		Queue<Integer> cola = new LinkedList<Integer>(); //En la cola se guarda el index de cada nodo del grafo
 		int i = 0; //indice en el array de nodos a devolver
 		// O(#nodos)
-		//visitados[0] = true; //el primero lo tomo como visitado
-		//cola.add(0);
 		
-		for(int j = 1; j < visitados.length; j++){
+		for(int j = 0; j < visitados.length; j++){
 			visitados[j] = false;
 			//ninguno fue visitado
 		}

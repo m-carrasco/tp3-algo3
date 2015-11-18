@@ -11,6 +11,7 @@ public class Nodo implements Comparable<Nodo>{
 	
 	private ArrayList<Integer> colores;
 	
+	private Integer colorPintado=-1;
 	
 	public List<Integer> getVecinos() {
 		return vecinos;
@@ -52,5 +53,11 @@ public class Nodo implements Comparable<Nodo>{
 			return 1;
 		
 		return 0;
+	}
+	public Integer getColorPintado() {
+		return colorPintado;
+	}
+	public void setColorPintado(Integer colorPintado) {
+		this.colorPintado = colorPintado;
 	}   
 }

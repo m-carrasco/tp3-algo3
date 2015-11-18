@@ -95,7 +95,7 @@ public class ListColoringTest {
 		materias.setNodo(4, m4);
 		
 		Integer[] expected = {ROJO, VERDE, AZUL, NARANJA, VIOLETA};
-		Integer[] orden = {0,1,2,3,4};
+		Integer[] orden = {0,2,1,3,4};
 		GrafoMaterias res = new GrafoMaterias(5);
 		Assert.assertEquals(true, ListColoring.recursion(materias, res, 0, orden));
 		
@@ -188,6 +188,76 @@ public class ListColoringTest {
 		for (Nodo n : res.getGrafo())
 			Assert.assertEquals(null, n);
 	}
-	
 
+	
+	@Test
+	public void K3K3() {
+		GrafoMaterias DosConexas = new GrafoMaterias(6);
+		
+		Nodo m0 = new Nodo(); 
+		Nodo m1 = new Nodo();
+		Nodo m2 = new Nodo();
+		
+		Nodo m3 = new Nodo();
+		Nodo m4 = new Nodo();
+		Nodo m5 = new Nodo();
+		
+		m0.addVecinos(1);
+		m0.addVecinos(2);
+		m1.addVecinos(0);
+		m1.addVecinos(2);
+		m2.addVecinos(0);
+		m2.addVecinos(1);
+		
+		m3.addVecinos(4);
+		m3.addVecinos(5);
+		m4.addVecinos(3);
+		m4.addVecinos(5);
+		m5.addVecinos(3);
+		m5.addVecinos(4);
+		
+		ArrayList<Integer> c0 = new ArrayList<Integer>();
+		c0.add(AZUL);
+		c0.add(NARANJA);
+		m0.setColores(c0);
+		
+		ArrayList<Integer> c1 = new ArrayList<Integer>();
+		c1.add(AZUL);
+		c1.add(NARANJA);
+		c1.add(VERDE);
+		m1.setColores(c1);
+		
+		ArrayList<Integer> c2 = new ArrayList<Integer>();
+		c2.add(VERDE);
+		c2.add(NARANJA);
+		m2.setColores(c2);
+		
+		ArrayList<Integer> c4 = new ArrayList<Integer>();
+		c4.add(AZUL);
+		c4.add(NARANJA);
+		m3.setColores(c4);
+		
+		ArrayList<Integer> c5 = new ArrayList<Integer>();
+		c5.add(VERDE);
+		c5.add(NARANJA);
+		m4.setColores(c5);
+		
+		ArrayList<Integer> c6 = new ArrayList<Integer>();
+		c6.add(NARANJA);
+		c6.add(ROJO);
+		m5.setColores(c6);
+		
+		DosConexas.setNodo(0, m0);
+		DosConexas.setNodo(1, m1);
+		DosConexas.setNodo(2, m2);
+		DosConexas.setNodo(3, m3);
+		DosConexas.setNodo(4, m4);
+		DosConexas.setNodo(5, m5);
+		
+		Integer[] colores = ListColoring.solve(DosConexas);
+		Integer[] expected = {2,3,1,2,1,0};
+		
+		Assert.assertArrayEquals(expected, colores);
+	}
+	
 }
