@@ -2,15 +2,16 @@ package uba.algo3.tp3.ejercicio1;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
 
 public class Parser {
-	public GrafoMaterias parse(String filename) throws IOException{
+	public GrafoMaterias parse(InputStream in) throws IOException{
 		
-		BufferedReader archivo = new BufferedReader( new InputStreamReader( getClass().getResourceAsStream( filename + ".in") ) );
+		BufferedReader archivo = new BufferedReader( new InputStreamReader( in ) );
 		
 		String line = archivo.readLine();
 		

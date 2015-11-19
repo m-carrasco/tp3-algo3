@@ -2,6 +2,7 @@ package uba.algo3.tp3.ejercicio2;
  
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.Assert;
@@ -9,6 +10,7 @@ import org.junit.Test;
 
 import uba.algo3.tp3.ejercicio1.GrafoMaterias;
 import uba.algo3.tp3.ejercicio1.Nodo;
+import uba.algo3.tp3.ejercicio1.Parser;
 import uba.algo3.tp3.ejercicio1.TwoListColoring;
 
 public class ListColoringTest {
@@ -18,6 +20,16 @@ public class ListColoringTest {
 	private static final Integer AZUL = 2;
 	private static final Integer NARANJA = 3;
 	private static final Integer VIOLETA = 4;
+	
+	
+	@Test
+	public void testPeorCasoFijoN() throws IOException
+	{
+		// En este caso probamos las instancias de peor caso fijando N y dejando libre LC
+		Parser p = new Parser();
+		GrafoMaterias input = p.parse(getClass().getResourceAsStream( "entradaPeorEj2N10LC5.in"));
+		Assert.assertEquals(null, ListColoring.solve(input));
+	}
 	
 	@Test
 	public void test() {

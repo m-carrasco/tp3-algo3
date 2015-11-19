@@ -82,5 +82,5 @@ def generarInputSinIntencionalidad(n, lc, name):
 
 generarInputPeorCaso(10, 5, 'entradaPeorEj2N10LC5.in')
 
-#generarInputMejorCaso(5, 3, 'entradaMejor.in')
-#generarInputSinIntencionalidad(5, 3, 'entradaSinIntencionalidad.in')
+generarInputMejorCaso(5, 3, 'entradaMejor.in')
+generarInputSinIntencionalidad(5, 3, 'entradaSinIntencionalidad.in')

@@ -47,7 +47,7 @@ public class GrafoMaterias {
 		List<List<Integer>> cc = new LinkedList<List<Integer>>();
 		Boolean[] visitados = new Boolean[this.getSize()]; 
 		Queue<Integer> cola = new LinkedList<Integer>(); //En la cola se guarda el index de cada nodo del grafo
-		int i = 0; //indice en el array de nodos a devolver
+
 		// O(#nodos)
 		
 		for(int j = 0; j < visitados.length; j++){
@@ -60,6 +60,8 @@ public class GrafoMaterias {
 		{
 			if (visitados[k])
 				continue;
+			
+			// se empieza a explorar una nueva cc.
 			nodosEnCC = new LinkedList<Integer>();
 			visitados[k] = true;
 			
@@ -70,12 +72,13 @@ public class GrafoMaterias {
 			while(!cola.isEmpty()){//Mientras haya vecinos sigo recorriendo
 				Integer idxNodo = cola.poll(); //index del nodo en el grafo materias			
 				visitados[idxNodo] = true;
-				i++;
+
 				// O(#nodos)
 				for(Integer vecino : this.getNodo(idxNodo).getVecinos())//recorro los vecinos del nodo en el grafo
 				{
 					if(!visitados[vecino]){//sino fue visitado
 						cola.add(vecino);
+						visitados[vecino] = true;
 					}
 				}
 				
