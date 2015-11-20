@@ -1,5 +1,6 @@
 package uba.algo3.tp3.ejercicio3;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -8,6 +9,7 @@ import org.junit.Test;
 
 import uba.algo3.tp3.ejercicio1.GrafoMaterias;
 import uba.algo3.tp3.ejercicio1.Nodo;
+import uba.algo3.tp3.parser.Parser;
 
 public class ListColoringGolosoTest {
 	
@@ -16,6 +18,109 @@ public class ListColoringGolosoTest {
 	private static final Integer AZUL = 2;
 	private static final Integer NARANJA = 3;
 	private static final Integer VIOLETA = 4;
+
+	// Corre it veces greedy sobre el grafo temp y lo restaura en cada iteracion.
+	public void run(Integer it, GrafoMaterias g)
+	{
+		for (Integer j = 0; j < it; j++)
+		{
+			ListColoringGoloso.solve(g);
+			for (Nodo n : g.getGrafo())
+				n.setColorPintado(-1);
+		}
+	}
+	@Test 
+	public void testVariarN() throws IOException
+	{
+		// Para este caso deberia comportarse de manera n*log n
+	
+		Parser p = new Parser();
+		
+		Integer it = 2000;
+		
+		System.out.println("Ejercicio3 variando n");
+		System.out.println("N M LC Tiempo promedio");
+		
+		// iteramos por cada caso
+		for (Integer i = 1000; i <= 20000; i = i + 1000)
+		{
+			String filename = "entradaEj3N" + i+"M100LC10";
+			GrafoMaterias original = p.parse(filename);
+					
+			// warmup
+			run( it, original);
+
+			long inicio = System.currentTimeMillis();
+			
+			run( it, original);
+			
+			Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+			System.out.println(i + " 100 10 " + delta);
+		}	
+	}
+
+
+	@Test 
+	public void testVariarC() throws IOException
+	{
+		// Para este caso deberia comportarse de manera n*log n
+	
+		Parser p = new Parser();
+		
+		Integer it = 100;
+		
+		System.out.println("Ejercicio3 variando c");
+		System.out.println("N M LC Tiempo promedio");
+		
+		// iteramos por cada caso
+		for (Integer i = 100; i <= 1500; i = i + 100)
+		{
+			String filename = "entradaEj3N250M50LC" + i;
+			GrafoMaterias original = p.parse(filename);
+					
+			// warmup
+			run( it, original);
+
+			long inicio = System.currentTimeMillis();
+			
+			run( it, original);
+			
+			Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+			System.out.println("250 50 " +i + " "+  delta);
+		}	
+	}
+
+	@Test 
+	public void testVariarM() throws IOException
+	{
+		// Para este caso deberia comportarse de manera n*log n
+	
+		Parser p = new Parser();
+		
+		Integer it = 1000;
+		
+		System.out.println("Ejercicio3 variando M");
+		System.out.println("N M LC Tiempo promedio");
+		
+		// iteramos por cada caso
+		for (Integer i = 1000; i <= 20000; i = i + 1000)
+		{
+			String filename = "entradaEj3N500M"+i+"LC10";
+			GrafoMaterias original = p.parse(filename);
+					
+			// warmup
+			run( it, original);
+
+			long inicio = System.currentTimeMillis();
+			
+			run( it, original);
+			
+			Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+			System.out.println("500 " +i + " 100 "+  delta);
+		}	
+	}
+
+	
 	
 	@Test
 	public void grafoUnSoloColor() {

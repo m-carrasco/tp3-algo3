@@ -80,9 +80,13 @@ public class ListColoringGoloso {
 		Goloso(g); 
 		//Ahora el grafo tiene solo un color en cada nodo
 		Boolean[] visitados = new Boolean[g.getSize()]; 
+		Boolean[] conflictos = new Boolean[g.getSize()];
+		
 		Queue<Integer> cola = new LinkedList<Integer>(); //En la cola se guarda el index de cada nodo del grafo
-		for(int j = 0; j < visitados.length; j++)
+		for(int j = 0; j < visitados.length; j++){
 			visitados[j] = false;
+			conflictos[j] = false;
+		}
 
 		for (int k = 0; k < visitados.length; k++)
 		{
@@ -100,15 +104,23 @@ public class ListColoringGoloso {
 				// O(#nodos)
 				for(Integer vecino : g.getNodo(idxNodo).getVecinos())//recorro los vecinos del nodo en el grafo
 				{
-					if(!visitados[vecino]){//sino fue visitado
+					if (!conflictos[vecino])
+					{
 						if(g.getNodo(idxNodo).getColorPintado() == g.getNodo(vecino).getColorPintado()) //hay conflicto
 						{	
 							Integer[] tupla = {idxNodo,vecino};
 							conflictivas.add(tupla);
 						}
+					}
+					
+					if (!visitados[vecino])
+					{
 						cola.add(vecino);
+						visitados[vecino] = true;
 					}
 				}
+				
+				conflictos[idxNodo] = true;
 			}
 			
 		}

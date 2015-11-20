@@ -16,4 +16,18 @@ def generarInput(n, m, lc, name):
     f.close()
 
 
-generarInput(5, 5, 3, 'entradaEj3.in')
+
+m = 100
+lc = 10
+for i in range(1000,21000,1000):
+    generarInput(i,m,lc, "entradaEj3N"+str(i)+"M100LC10.in")
+
+n=250
+m= 50
+for i in range(100,1600,100):
+    generarInput(n,m,i, "entradaEj3N250M50LC"+str(i)+".in")
+
+n=500
+lc=10
+for i in range(1000,21000,100):
+    generarInput(n,i,lc, "entradaEj3N500M"+str(i)+"LC10.in")
