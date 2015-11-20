@@ -1,4 +1,4 @@
-package uba.algo3.tp3.ejercicio1;
+package uba.algo3.tp3.parser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,12 +6,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import uba.algo3.tp3.ejercicio1.GrafoMaterias;
+import uba.algo3.tp3.ejercicio1.Nodo;
+
 
 
 public class Parser {
-	public GrafoMaterias parse(InputStream in) throws IOException{
+	public GrafoMaterias parse(String filename) throws IOException{
 		
-		BufferedReader archivo = new BufferedReader( new InputStreamReader( in ) );
+		BufferedReader archivo = new BufferedReader( new InputStreamReader( getClass().getResourceAsStream( filename + ".in") ) );
 		
 		String line = archivo.readLine();
 		

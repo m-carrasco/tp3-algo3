@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.Test;
 
+
 import uba.algo3.tp3.ejercicio1.GrafoMaterias;
 import uba.algo3.tp3.ejercicio1.Nodo;
-import uba.algo3.tp3.ejercicio1.Parser;
 import uba.algo3.tp3.ejercicio1.TwoListColoring;
+import uba.algo3.tp3.parser.Parser;
 
 public class ListColoringTest {
 	
@@ -27,8 +28,21 @@ public class ListColoringTest {
 	{
 		// En este caso probamos las instancias de peor caso fijando N y dejando libre LC
 		Parser p = new Parser();
-		GrafoMaterias input = p.parse(getClass().getResourceAsStream( "entradaPeorEj2N10LC5.in"));
-		Assert.assertEquals(null, ListColoring.solve(input));
+		// 
+		GrafoMaterias input = p.parse("entradaPeorEj2N10LC5");
+		Integer[] res = ListColoring.solve(input);
+
+		//for (Integer v : input.getNodo(7).getVecinos())
+		//	System.out.println(v);
+		//System.out.println(input.getNodo(7).getColores().size());
+		//System.out.println(input.getNodo(8).getColores().get(0));
+		//System.out.println(input.getNodo(9).getColores().get(0));
+		//for (Integer v : input.getNodo(9).getVecinos())
+		//	System.out.println(v);
+		//for (Integer i : res)
+	//		System.out.println(i);
+		
+		Assert.assertEquals(null, res);
 	}
 	
 	@Test

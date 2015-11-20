@@ -71,7 +71,7 @@ public class GrafoMaterias {
 			// O(#nodos)
 			while(!cola.isEmpty()){//Mientras haya vecinos sigo recorriendo
 				Integer idxNodo = cola.poll(); //index del nodo en el grafo materias			
-				visitados[idxNodo] = true;
+				//visitados[idxNodo] = true;
 
 				// O(#nodos)
 				for(Integer vecino : this.getNodo(idxNodo).getVecinos())//recorro los vecinos del nodo en el grafo
