@@ -80,7 +80,8 @@ def generarInputSinIntencionalidad(n, lc, name):
     f.close()
 
 
-generarInputPeorCaso(10, 5, 'entradaPeorEj2N10LC5.in')
+for i in range(1,101):
+    generarInputPeorCaso(10, i, "entradaPeorEj2N10LC"+ str(i)+".in")
 
 #generarInputMejorCaso(5, 3, 'entradaMejor.in')
 #generarInputSinIntencionalidad(5, 3, 'entradaSinIntencionalidad.in')

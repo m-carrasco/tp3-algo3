@@ -2,10 +2,13 @@ package uba.algo3.tp3.ejercicio1;
 
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import uba.algo3.tp3.parser.Parser;
 
 public class TwoListColoringTest {
 	
@@ -16,6 +19,16 @@ public class TwoListColoringTest {
 	private static final Integer VIOLETA = 4;
 	
 
+	@Test
+	public void testing() throws IOException{
+		Parser p = new Parser();
+		GrafoMaterias input = p.parse("testEntradaTwo");
+
+		for (Integer i :TwoListColoring.solve(input))
+			System.out.println(i);
+		
+		Assert.assertArrayEquals(null, TwoListColoring.solve(input));
+	}
 	@Test
 	public void grafoUnSoloColor() {
 

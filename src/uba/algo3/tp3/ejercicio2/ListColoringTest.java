@@ -1,13 +1,10 @@
 package uba.algo3.tp3.ejercicio2;
  
-import static org.junit.Assert.*;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Test;
-
 
 import uba.algo3.tp3.ejercicio1.GrafoMaterias;
 import uba.algo3.tp3.ejercicio1.Nodo;
@@ -24,13 +21,51 @@ public class ListColoringTest {
 	
 	
 	@Test
+	public void testCasoLC16() throws IOException
+	{
+		Parser p = new Parser();
+		GrafoMaterias input = p.parse("entradaPeorEj2N10LC16");
+		System.out.println("Vecinos nodo 7");
+		for (Integer v : input.getNodo(7).getVecinos())
+			System.out.println(v);
+		System.out.println("Vecinos nodo 8");
+		for (Integer v : input.getNodo(8).getVecinos())
+			System.out.println(v);
+		System.out.println("Vecinos nodo 9");
+		for (Integer v : input.getNodo(9).getVecinos())
+			System.out.println(v);
+		
+		System.out.println("Cantidad Colores del nodo 8 y 9");
+		System.out.println(input.getNodo(8).getColores().size());
+		System.out.println(input.getNodo(9).getColores().size());
+		System.out.println("Colores del nodo 8 y 9");
+		System.out.println(input.getNodo(8).getColores().get(0));
+		System.out.println(input.getNodo(9).getColores().get(0));
+		
+		//System.out.println(input.getNodo(7).getColores().size());
+		//System.out.println(input.getNodo(8).getColores().get(0));
+		//System.out.println(input.getNodo(9).getColores().get(0));
+		//for (Integer v : input.getNodo(9).getVecinos())
+		//	System.out.println(v);
+		Integer[] res = ListColoring.solve(input);
+		for (Integer i : res)
+			System.out.println(i);
+		
+	}
+	
+	@Test
 	public void testPeorCasoFijoN() throws IOException
 	{
 		// En este caso probamos las instancias de peor caso fijando N y dejando libre LC
 		Parser p = new Parser();
-		// 
-		GrafoMaterias input = p.parse("entradaPeorEj2N10LC5");
-		Integer[] res = ListColoring.solve(input);
+		for (Integer i = 16; i < 102; i++)
+		{
+			System.out.println("Testeando con LC " + i);
+			GrafoMaterias input = p.parse("entradaPeorEj2N10LC" + i);
+			Integer[] res = ListColoring.solve(input);
+			Assert.assertEquals(null, res);
+		}
+
 
 		//for (Integer v : input.getNodo(7).getVecinos())
 		//	System.out.println(v);
@@ -42,7 +77,7 @@ public class ListColoringTest {
 		//for (Integer i : res)
 	//		System.out.println(i);
 		
-		Assert.assertEquals(null, res);
+
 	}
 	
 	@Test

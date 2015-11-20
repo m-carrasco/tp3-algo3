@@ -22,7 +22,7 @@ public class ListColoringGoloso {
 	{		
 		ArrayList<Nodo> ordenados = OrdenarPorColores(g); 
 		
-		for(Nodo n : ordenados) //O((n+m)c^2)
+		for(Nodo n : ordenados) //O(n+m*c^2)
 		{
 			Double[] valoresPorColor = new Double[n.cantColores()];
 			
@@ -35,6 +35,7 @@ public class ListColoringGoloso {
 				
 				for(Integer c : n.getColores())
 				{
+					// si fue pintado
 					if(g.getNodo(vecino).getColorPintado()!=-1){
 						
 						if(c == g.getNodo(vecino).getColorPintado())
