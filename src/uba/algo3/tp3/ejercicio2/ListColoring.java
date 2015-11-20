@@ -83,23 +83,10 @@ public class ListColoring {
 			if (!TwoListColoring.esSastifacible(materia))
 				continue;
 			if(idx == nodos.length -1){
-				System.out.println("Soy el nodo " + idxInput);
-				System.out.println("Iteracion de color: " + i);
-				System.out.println("Colores:");
-				System.out.println(materia.getGrafo().get(idxInput).getColores().get(0));
-				if (materia.getGrafo().get(idxInput).getColores().size() > 1)
-					System.out.println(materia.getGrafo().get(idxInput).getColores().get(1));
 				return true;
 			}
 			else if(recursion(input, materia, idx+1, nodos))
 			{
-				System.out.println("Soy el nodo " + idxInput);
-				System.out.println("Iteracion de color: " + i);
-				System.out.println("Colores:");
-				System.out.println(materia.getGrafo().get(idxInput).getColores().get(0));
-				if (materia.getGrafo().get(idxInput).getColores().size() > 1)
-					System.out.println(materia.getGrafo().get(idxInput).getColores().get(1));
-				
 				return true;
 			}
 		}

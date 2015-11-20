@@ -18,66 +18,241 @@ public class ListColoringTest {
 	private static final Integer AZUL = 2;
 	private static final Integer NARANJA = 3;
 	private static final Integer VIOLETA = 4;
-	
-	
-	@Test
-	public void testCasoLC16() throws IOException
+
+	// Corre it veces backtracking sobre el grafo temp y lo restaura en cada iteracion.
+	public void run(Integer it, GrafoMaterias temp, GrafoMaterias original)
 	{
+		for (Integer j = 0; j < it; j++)
+		{
+			ListColoring.solve(temp);
+			for (Integer id = 0; id < original.getSize(); id++)
+			{
+				ArrayList<Integer> colores = new ArrayList<Integer>(original.getNodo(id).getColores().size());
+				
+				for (Integer c : original.getNodo(id).getColores())
+					colores.add(c);
+				
+				temp.getNodo(id).setColores(colores);
+			}
+		}
+	}
+	@Test 
+	public void testPeorCasoFijoLC() throws IOException
+	{
+		// Para este caso deberia comportarse de manera exponencial.
+		// N=4..12 LC=6 O(n^² * (lc/2)^n)
+		
+		// En este caso probamos las instancias de peor caso fijando LC y dejando libre N
 		Parser p = new Parser();
-		GrafoMaterias input = p.parse("entradaPeorEj2N10LC16");
-		System.out.println("Vecinos nodo 7");
-		for (Integer v : input.getNodo(7).getVecinos())
-			System.out.println(v);
-		System.out.println("Vecinos nodo 8");
-		for (Integer v : input.getNodo(8).getVecinos())
-			System.out.println(v);
-		System.out.println("Vecinos nodo 9");
-		for (Integer v : input.getNodo(9).getVecinos())
-			System.out.println(v);
 		
-		System.out.println("Cantidad Colores del nodo 8 y 9");
-		System.out.println(input.getNodo(8).getColores().size());
-		System.out.println(input.getNodo(9).getColores().size());
-		System.out.println("Colores del nodo 8 y 9");
-		System.out.println(input.getNodo(8).getColores().get(0));
-		System.out.println(input.getNodo(9).getColores().get(0));
+		Integer it = 100;
 		
-		//System.out.println(input.getNodo(7).getColores().size());
-		//System.out.println(input.getNodo(8).getColores().get(0));
-		//System.out.println(input.getNodo(9).getColores().get(0));
-		//for (Integer v : input.getNodo(9).getVecinos())
-		//	System.out.println(v);
-		Integer[] res = ListColoring.solve(input);
-		//for (Integer i : res)
-		//	System.out.println(i);
-		Assert.assertEquals(null, res);
+		System.out.println("Peor caso ejercicio2 fijando LC y variando N.");
+		System.out.println("N LC Tiempo promedio");
+		
+		// iteramos por cada caso
+		for (Integer i = 4; i <= 12; i++)
+		{
+			String filename = "entradaPeorEj2N" + i+"LC6";
+			GrafoMaterias original = p.parse(filename);
+			// trabajamos sobre temp. Cada backtracking sobreescribe los colores de las materias.
+			GrafoMaterias temp = p.parse(filename);		
+					
+			// warmup
+			run( it,  temp,  original);
+			
+			temp = p.parse(filename);
+			long inicio = System.currentTimeMillis();
+			
+			run( it,  temp,  original);
+			
+			Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+			System.out.println(i + " 6 " + delta);
+
+		}	
+	}
+
+	@Test 
+	public void testMejorCasoFijoLC() throws IOException
+	{
+		// Para este caso deberia comportarse de manera exponencial.
+		// N=4..12 LC=6 O(n^² * (lc/2)^n)
+		
+		// En este caso probamos las instancias de peor caso fijando LC y dejando libre N
+		Parser p = new Parser();
+		
+		Integer it = 100;
+		
+		System.out.println("Mejor caso ejercicio2 fijando LC y variando N.");
+		System.out.println("N LC Tiempo promedio");
+		
+		// iteramos por cada caso
+		for (Integer i = 4; i <= 12; i++)
+		{
+			String filename = "entradaMejorEj2N" + i+"LC6";
+			GrafoMaterias original = p.parse(filename);
+			// trabajamos sobre temp. Cada backtracking sobreescribe los colores de las materias.
+			GrafoMaterias temp = p.parse(filename);		
+					
+			// warmup
+			run( it,  temp,  original);
+			
+			temp = p.parse(filename);
+			long inicio = System.currentTimeMillis();
+			
+			run( it,  temp,  original);
+			
+			Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+			System.out.println(i + " 6 " + delta);
+
+		}	
+	}
+
+	@Test 
+	public void testSinIntencionalidadFijoLC() throws IOException
+	{
+		// Para este caso deberia comportarse de manera exponencial.
+		// N=4..12 LC=6 O(n^² * (lc/2)^n)
+		
+		// En este caso probamos las instancias de peor caso fijando LC y dejando libre N
+		Parser p = new Parser();
+		
+		Integer it = 100;
+		
+		System.out.println("Sin Intencionalidad caso ejercicio2 fijando LC y variando N.");
+		System.out.println("N LC Tiempo promedio");
+		
+		// iteramos por cada caso
+		for (Integer i = 4; i <= 12; i++)
+		{
+			String filename = "entradaSinIntencionalidadEj2N" + i+"LC6";
+			GrafoMaterias original = p.parse(filename);
+			// trabajamos sobre temp. Cada backtracking sobreescribe los colores de las materias.
+			GrafoMaterias temp = p.parse(filename);		
+					
+			// warmup
+			run( it,  temp,  original);
+			
+			temp = p.parse(filename);
+			long inicio = System.currentTimeMillis();
+			
+			run( it,  temp,  original);
+			
+			Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+			System.out.println(i + " 6 " + delta);
+
+		}	
 	}
 	
-	@Test
+	@Test 
 	public void testPeorCasoFijoN() throws IOException
 	{
+		// en este caso deberia ser polinomial.
+		
+		// N=5 LC=2...20 O(n^² * (lc/2)^n)
+		
 		// En este caso probamos las instancias de peor caso fijando N y dejando libre LC
 		Parser p = new Parser();
-		for (Integer i = 16; i < 102; i++)
-		{
-			System.out.println("Testeando con LC " + i);
-			GrafoMaterias input = p.parse("entradaPeorEj2N10LC" + i);
-			Integer[] res = ListColoring.solve(input);
-			Assert.assertEquals(null, res);
-		}
-
-
-		//for (Integer v : input.getNodo(7).getVecinos())
-		//	System.out.println(v);
-		//System.out.println(input.getNodo(7).getColores().size());
-		//System.out.println(input.getNodo(8).getColores().get(0));
-		//System.out.println(input.getNodo(9).getColores().get(0));
-		//for (Integer v : input.getNodo(9).getVecinos())
-		//	System.out.println(v);
-		//for (Integer i : res)
-	//		System.out.println(i);
 		
+		Integer it = 100;
+		
+		System.out.println("Peor caso ejercicio2 fijando N y variando LC.");
+		System.out.println("N LC Tiempo promedio");
+		
+		// iteramos por cada caso
+		for (Integer i = 2; i <= 20; i++)
+		{
+			String filename = "entradaPeorEj2N5LC" + i;
+			GrafoMaterias original = p.parse(filename);
+			// trabajamos sobre temp. Cada backtracking sobreescribe los colores de las materias.
+			GrafoMaterias temp = p.parse(filename);			
+					
+			// warmup
+			run( it,  temp,  original);
+			
+			temp = p.parse(filename);
+			long inicio = System.currentTimeMillis();
+			
+			run( it,  temp,  original);
+			
+			Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+			System.out.println("5 " + i + " " + delta);
 
+		}
+	}
+
+	@Test 
+	public void testMejorFijoN() throws IOException
+	{
+		// en este caso deberia ser polinomial.
+		
+		// N=5 LC=2...20 O(n^² * (lc/2)^n)
+		
+		// En este caso probamos las instancias de peor caso fijando N y dejando libre LC
+		Parser p = new Parser();
+		
+		Integer it = 100;
+		
+		System.out.println("Mejor caso ejercicio2 fijando N y variando LC.");
+		System.out.println("N LC Tiempo promedio");
+		
+		// iteramos por cada caso
+		for (Integer i = 2; i <= 20; i++)
+		{
+			String filename = "entradaMejorEj2N5LC" + i;
+			GrafoMaterias original = p.parse(filename);
+			// trabajamos sobre temp. Cada backtracking sobreescribe los colores de las materias.
+			GrafoMaterias temp = p.parse(filename);			
+					
+			// warmup
+			run( it,  temp,  original);
+			
+			temp = p.parse(filename);
+			long inicio = System.currentTimeMillis();
+			
+			run( it,  temp,  original);
+			
+			Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+			System.out.println("5 " + i + " " + delta);
+
+		}
+	}
+	
+	@Test 
+	public void testSinIntencionalidadCasoFijoN() throws IOException
+	{
+		// en este caso deberia ser polinomial.
+		
+		// N=5 LC=2...20 O(n^² * (lc/2)^n)
+		
+		// En este caso probamos las instancias de peor caso fijando N y dejando libre LC
+		Parser p = new Parser();
+		
+		Integer it = 100;
+		
+		System.out.println("Sin Intencionalidad caso ejercicio2 fijando N y variando LC.");
+		System.out.println("N LC Tiempo promedio");
+		
+		// iteramos por cada caso
+		for (Integer i = 2; i <= 20; i++)
+		{
+			String filename = "entradaSinIntencionalidadEj2N5LC" + i;
+			GrafoMaterias original = p.parse(filename);
+			// trabajamos sobre temp. Cada backtracking sobreescribe los colores de las materias.
+			GrafoMaterias temp = p.parse(filename);			
+					
+			// warmup
+			run( it,  temp,  original);
+			
+			temp = p.parse(filename);
+			long inicio = System.currentTimeMillis();
+			
+			run( it,  temp,  original);
+			
+			Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+			System.out.println("5 " + i + " " + delta);
+
+		}
 	}
 	
 	@Test

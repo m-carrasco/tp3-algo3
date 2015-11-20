@@ -80,8 +80,17 @@ def generarInputSinIntencionalidad(n, lc, name):
     f.close()
 
 
-for i in range(1,101):
-    generarInputPeorCaso(10, i, "entradaPeorEj2N10LC"+ str(i)+".in")
+# LC = 6 N=4..11 EXPONENCIAL
+for i in range(4,13):
+    generarInputPeorCaso(i, 6, "entradaPeorEj2N"+ str(i)+"LC6.in")
+    generarInputMejorCaso(i, 6, "entradaMejorEj2N"+ str(i)+"LC6.in")
+    generarInputSinIntencionalidad(i, 6, "entradaSinIntencionalidadEj2N"+ str(i)+"LC6.in")
 
-#generarInputMejorCaso(5, 3, 'entradaMejor.in')
-#generarInputSinIntencionalidad(5, 3, 'entradaSinIntencionalidad.in')
+# LC = 2...20 N=5 POLINOMIAL
+for i in range(2,21):
+    generarInputPeorCaso(5, i, "entradaPeorEj2N5LC"+str(i)+".in")
+    generarInputMejorCaso(5, i, "entradaMejorEj2N5LC"+str(i)+".in")
+    generarInputSinIntencionalidad(5, i, "entradaSinIntencionalidadEj2N5LC"+str(i)+".in")
+
+#
+#
