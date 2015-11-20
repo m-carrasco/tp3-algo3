@@ -24,9 +24,10 @@ public class TwoListColoringTest {
 		Parser p = new Parser();
 		GrafoMaterias input = p.parse("testEntradaTwo");
 
-		for (Integer i :TwoListColoring.solve(input))
-			System.out.println(i);
+		//for (Integer i :TwoListColoring.solve(input))
+		//	System.out.println(i);
 		
+		//
 		Assert.assertArrayEquals(null, TwoListColoring.solve(input));
 	}
 	@Test

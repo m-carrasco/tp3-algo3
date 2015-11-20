@@ -69,7 +69,7 @@ public class GrafoSAT {
 				for(int mivecino : n.getVecinos()){
 					// itero colores de mi vecino
 					for(int sucolor = 0; sucolor< g.getNodo(mivecino).getColores().size();sucolor++){
-						if(n.getColores().get(micolor)==g.getNodo(mivecino).getColores().get(sucolor)){
+						if(n.getColores().get(micolor).intValue()== g.getNodo(mivecino).getColores().get(sucolor).intValue()){
 							grafo.get(i*4+micolor*2).addVecino(mivecino*4+sucolor*2+1);
 						}
 					}
@@ -78,6 +78,8 @@ public class GrafoSAT {
 			
 			i++;
 		}
+		
+		return;
 		
 	}
 
@@ -195,7 +197,7 @@ public class GrafoSAT {
 		{
 			// si es -1 es que el nodo no existe.
 			// se trata de una materia de un solor color.
-			if (cc.get(i) != -1 && cc.get(i) == cc.get(i+1))
+			if (cc.get(i) != -1 && cc.get(i).intValue() == cc.get(i+1).intValue())
 				return false;
 		}
 		
@@ -248,7 +250,7 @@ public class GrafoSAT {
 	{		
 		for (Integer compVecina : caminos.get(comp1))
 		{
-			if (compVecina == comp2)
+			if (compVecina.intValue() == comp2.intValue())
 				return true;
 			
 			if (HayCamino(compVecina, comp2, caminos))

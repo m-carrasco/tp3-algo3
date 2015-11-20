@@ -48,9 +48,9 @@ public class ListColoringTest {
 		//for (Integer v : input.getNodo(9).getVecinos())
 		//	System.out.println(v);
 		Integer[] res = ListColoring.solve(input);
-		for (Integer i : res)
-			System.out.println(i);
-		
+		//for (Integer i : res)
+		//	System.out.println(i);
+		Assert.assertEquals(null, res);
 	}
 	
 	@Test
