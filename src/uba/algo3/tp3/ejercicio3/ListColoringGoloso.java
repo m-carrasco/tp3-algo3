@@ -22,9 +22,9 @@ public class ListColoringGoloso {
 	{		
 		ArrayList<Nodo> ordenados = OrdenarPorColores(g); 
 		
-		for(Nodo n : ordenados) //O(n+m*c^2)
+		for(Nodo n : ordenados) 
 		{
-			Double[] valoresPorColor = new Double[n.cantColores()];
+			Double[] valoresPorColor = new Double[n.cantColores()]; //O(c)
 			
 			for(int j = 0; j < valoresPorColor.length; j++)
 				valoresPorColor[j] = 0.0;
