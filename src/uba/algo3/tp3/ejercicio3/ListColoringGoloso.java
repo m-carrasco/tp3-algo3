@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Random;
 
 import uba.algo3.tp3.ejercicio1.GrafoMaterias;
 import uba.algo3.tp3.ejercicio1.Nodo;
@@ -18,7 +19,7 @@ public class ListColoringGoloso {
 	}
 	
 	//modifica el grafo y me lo devuelve con todos los nodos de un color
-	public static void Goloso(GrafoMaterias g)
+	public static void Goloso(GrafoMaterias g, boolean random)
 	{		
 		ArrayList<Nodo> ordenados = OrdenarPorColores(g); 
 		
@@ -67,8 +68,23 @@ public class ListColoringGoloso {
 					idx = j;
 				}
 			}
-			n.setColorPintado(n.getColores().get(idx));
 			
+			Integer resultado = n.getColores().get(idx);
+			if (random)
+			{
+				ArrayList<Integer> minimos = new ArrayList<Integer>(n.getColores().size());
+				
+				for(int j = 0; j < valoresPorColor.length; j++)
+				{
+					if(valoresPorColor[j].equals(min))
+						minimos.add(n.getColores().get(j));
+				}
+				
+				Random rand = new Random();	
+				Integer randIdx = rand.nextInt(minimos.size());
+				resultado = minimos.get(randIdx);
+			}
+			n.setColorPintado(resultado);
 		}
 		
 	}
@@ -77,7 +93,7 @@ public class ListColoringGoloso {
 	public static LinkedList<Integer[]> solve(GrafoMaterias g)
 	{
 		LinkedList<Integer[]> conflictivas = new LinkedList<Integer[]>();
-		Goloso(g); 
+		Goloso(g, false); 
 		//Ahora el grafo tiene solo un color en cada nodo
 		Boolean[] visitados = new Boolean[g.getSize()]; 
 		Boolean[] conflictos = new Boolean[g.getSize()];

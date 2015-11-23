@@ -37,7 +37,7 @@ public class ListColoringTest {
 		}
 	}
 	@Test 
-	public void testPeorCasoFijoLC() throws IOException
+	public void testrtPeorCasoFijoLC() throws IOException
 	{
 		// Para este caso deberia comportarse de manera exponencial.
 		// N=4..12 LC=6 O(n^² * (lc/2)^n)
