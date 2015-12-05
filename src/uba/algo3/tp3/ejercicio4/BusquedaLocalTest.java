@@ -116,7 +116,7 @@ public class BusquedaLocalTest {
 		
 		GrafoMaterias g = new GrafoMaterias(9);
 		g.setGrafo(grafo);
-		System.out.println(BusquedaLocal.mejorarSolucionRecolorear(g, 6, 1));
+		System.out.println(BusquedaLocal.mejorarSolucion(g, 6, 1,"recoloreo"));
 		//System.out.println(BusquedaLocal.switchNodos(g, 6));
 	}
 	@Test
@@ -133,7 +133,7 @@ public class BusquedaLocalTest {
 		original.getGrafo().get(4).setColorPintado(ROJO);
 		
 		System.out.println(BusquedaLocal.switchNodos(original, 6));
-		System.out.println(BusquedaLocal.mejorarSolucionRecolorear(original, 4, 1));
+		System.out.println(BusquedaLocal.mejorarSolucion(original, 4, 1,"recoloreo"));
 		
 	}
 
