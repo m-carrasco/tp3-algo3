@@ -189,14 +189,21 @@ public class BusquedaLocal {
 		
 	}
 	
-	public static int mejorarSolucionRecolorear(GrafoMaterias g,int  conflictos, Integer it) //ya coloreado
+	public static int mejorarSolucion(GrafoMaterias g,int  conflictos, Integer it,String tipo) //ya coloreado
 	{
+		
 		Integer j = 0;
 		int conf=conflictos;
 
 		while (j < it && j < conf)
 		{
-			int res=recolorearNodo(g,conflictos);
+			int res=0;
+			if(tipo == "recoloreo")
+				res=recolorearNodo(g,conflictos);
+				
+			if(tipo == "switch")
+				res=recolorearNodo(g,conflictos);
+				
 			if(res>=conflictos)
 			{
 				return res;
