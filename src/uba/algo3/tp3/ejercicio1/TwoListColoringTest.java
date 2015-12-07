@@ -18,7 +18,44 @@ public class TwoListColoringTest {
 	private static final Integer NARANJA = 3;
 	private static final Integer VIOLETA = 4;
 	
+		public void run(Integer it, GrafoMaterias temp)
+		{
+			for (Integer j = 0; j < it; j++)
+			{
+				TwoListColoring.solve(temp);
+			}
+		}
+		
+		@Test 
+		public void testPeorCaso() throws IOException
+		{
+			Parser p = new Parser();
+			
+			Integer it = 500;
+			
+			System.out.println("Peor caso ejercicio1.");
+			System.out.println("N LC Tiempo promedio");
+			
+			// iteramos por cada caso
+			for (Integer i = 100; i <= 1000; i = i + 100)
+			{
+				String filename = "entradaPeorEj1N" + i+"LC2";
+				GrafoMaterias original = p.parse(filename);
+			
+				// warmup
+				run( it,  original);
+				
+				long inicio = System.currentTimeMillis();
+				
+				run( it, original);
+				
+				Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+				System.out.println(i + " 2 " + delta);
 
+			}	
+		}
+
+		
 	@Test
 	public void testing() throws IOException{
 		Parser p = new Parser();
