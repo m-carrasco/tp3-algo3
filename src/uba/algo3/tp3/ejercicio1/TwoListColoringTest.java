@@ -31,13 +31,13 @@ public class TwoListColoringTest {
 		{
 			Parser p = new Parser();
 			
-			Integer it = 500;
+			Integer it = 100;
 			
 			System.out.println("Peor caso ejercicio1.");
 			System.out.println("N LC Tiempo promedio");
 			
 			// iteramos por cada caso
-			for (Integer i = 100; i <= 1000; i = i + 100)
+			for (Integer i = 100; i <= 600; i = i + 50)
 			{
 				String filename = "entradaPeorEj1N" + i+"LC2";
 				GrafoMaterias original = p.parse(filename);
@@ -50,7 +50,7 @@ public class TwoListColoringTest {
 				run( it, original);
 				
 				Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
-				System.out.println(i + " 2 " + delta);
+				System.out.println(i + ",2," + delta);
 
 			}	
 		}

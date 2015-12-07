@@ -9,7 +9,7 @@ t = M(:,3);
 
 coeficientes = ones(length(n), 1);
 for j=1:length(n)
-    coeficientes(j) = t(j) / (n(j)^(2.5));
+    coeficientes(j) = (t(j)*1) / (n(j)^(2));
 end
 
 
@@ -18,8 +18,8 @@ gscatter(n, t);
 hold on;
 
 set(gca, 'XTick', n)
-title('Tiempo de cómputo promedio en función de N ')
-legend('Tiempo promedio de cómputo O(n^2)')
+title('Tiempo de computo promedio en funcion de N ')
+legend('Tiempo promedio de computo O(n^2)')
 xlabel('Cantidad de nodos');
 ylabel('Milisegundos');
 
@@ -27,7 +27,7 @@ subplot(2,1,2);
 gscatter(n, coeficientes);
 
 set(gca, 'XTick', n)
-title('Cociente entre tiempo de computo y complejidad temporal en función de N ')
+title('Cociente entre tiempo de computo y complejidad temporal en funcion de N ')
 legend('Cociente')
 xlabel('Cantidad de nodos');
 ylabel('Milisegundos/cant. op');

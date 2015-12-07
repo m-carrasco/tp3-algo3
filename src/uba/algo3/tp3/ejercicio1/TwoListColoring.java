@@ -8,11 +8,13 @@ public class TwoListColoring {
 	public static Integer[] solve(GrafoMaterias materias){
 
 		GrafoSAT gs = new GrafoSAT(materias); //O(n + m)
+	
 		CompFuerteConexas cfc = gs.CC();  //O(n+m)
 		if(gs.Satisfacible(cfc.getCFCPorNodo())){
 			ArrayList<LinkedList<Integer>>  ady = gs.AdyacenciaEntreCompFuertConex(cfc);
 			gs.Pintar(ady, cfc);
 			return materiasPintadas(gs, materias);
+			
 		}
 		
 		return null;

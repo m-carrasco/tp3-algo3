@@ -167,6 +167,8 @@ public class GrafoSAT {
 			if (!visitados.get(i) && grafo.get(i) != null)
 				DFSIda(i, visitados, pila);
 		
+		ArrayList<NodoSAT> original = grafo;
+		
 		InvertirAristas();
 		
 
@@ -186,8 +188,9 @@ public class GrafoSAT {
 		
 		// O(n)
 		res.agruparPorCompFuerConexa();
-		
-		InvertirAristas();
+		grafo = original;
+		System.gc();
+		//InvertirAristas();
 		return res;
 	}
 	

@@ -22,7 +22,7 @@ def generarInputPeorCaso(n, name):
 
 
 
-for i in range(100, 650, 50):
+for i in range(100, 500, 50):
     generarInputPeorCaso(i, "entradaPeorEj1N"+ str(i)+"LC2.in")
 
 # LC = 6 N=4..11 EXPONENCIAL
