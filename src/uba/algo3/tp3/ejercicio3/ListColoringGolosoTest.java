@@ -29,6 +29,22 @@ public class ListColoringGolosoTest {
 				n.setColorPintado(-1);
 		}
 	}
+	
+	@Test 
+	public void CasoMalo() throws IOException
+	{
+		
+		Parser p = new Parser();
+		GrafoMaterias g = p.parse("Ej3CasoMalo");
+		ListColoringGoloso.solve(g);
+		int i = 0;
+		for(Nodo nodo : g.getGrafo())
+		{
+			System.out.println("Nodo " + i + " " + nodo.getColorPintado());
+			i++;
+		}	
+	}
+	
 	@Test 
 	public void testVariarN() throws IOException
 	{
