@@ -202,7 +202,7 @@ public class BusquedaLocal {
 				res=recolorearNodo(g,conflictos);
 				
 			if(tipo == "switch")
-				res=recolorearNodo(g,conflictos);
+				res=switchNodos(g,conflictos);
 				
 			if(res>=conflictos)
 			{

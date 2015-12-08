@@ -2,6 +2,8 @@ package uba.algo3.tp3.ejercicio4;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import org.junit.Test;
 
@@ -135,6 +137,138 @@ public class BusquedaLocalTest {
 		System.out.println(BusquedaLocal.switchNodos(original, 6));
 		System.out.println(BusquedaLocal.mejorarSolucion(original, 4, 1,"recoloreo"));
 		
+	}
+	
+	public Integer PintarPrimerColor(GrafoMaterias g)
+	{
+		
+		for (Nodo n : g.getGrafo())
+			n.setColorPintado(n.getColores().get(0));
+		
+		Integer conflictivas = 0;
+		//Ahora el grafo tiene solo un color en cada nodo
+		Boolean[] visitados = new Boolean[g.getSize()]; 
+		Boolean[] conflictos = new Boolean[g.getSize()];
+		
+		Queue<Integer> cola = new LinkedList<Integer>(); //En la cola se guarda el index de cada nodo del grafo
+		for(int j = 0; j < visitados.length; j++){
+			visitados[j] = false;
+			conflictos[j] = false;
+		}
+
+		for (int k = 0; k < visitados.length; k++)
+		{
+			if (visitados[k])
+				continue;
+			visitados[k] = true;
+			cola.add(k);
+			
+			// El ciclo no pushea dos veces el mismo nodo
+			// O(#nodos)
+			while(!cola.isEmpty())
+			{//Mientras haya vecinos sigo recorriendo
+				Integer idxNodo = cola.poll(); //index del nodo en el grafo materias
+				visitados[idxNodo] = true;
+				// O(#nodos)
+				for(Integer vecino : g.getNodo(idxNodo).getVecinos())//recorro los vecinos del nodo en el grafo
+				{
+					if (!conflictos[vecino])
+					{
+						if(g.getNodo(idxNodo).getColorPintado() == g.getNodo(vecino).getColorPintado()) //hay conflicto
+						{	
+							conflictivas++;
+						}
+					}
+					
+					if (!visitados[vecino])
+					{
+						cola.add(vecino);
+						visitados[vecino] = true;
+					}
+				}
+				
+				conflictos[idxNodo] = true;
+			}
+			
+		}
+		return conflictivas;
+	}
+	
+	public void prueba(String name, String heuristica) throws IOException
+	{
+		Parser p = new Parser();
+		GrafoMaterias g = p.parse(name);
+		Integer iteraciones = 5000;
+		int conflictos = PintarPrimerColor(g);//ListColoringGoloso.solve(g).size();
+		System.out.println("Conflictos originales: " + conflictos);
+		System.out.println("Conflictos restantes: " + BusquedaLocal.mejorarSolucion(g, iteraciones, iteraciones,heuristica));
+	}
+	@Test
+	public void testPruebas() throws IOException {
+		Parser p = new Parser();
+		
+		System.out.println("Completo Aleatorio - Recoloreo");
+		prueba("entradaEj4CAle", "recoloreo");
+		
+		
+		System.out.println("Completo Aleatorio - Switch");
+		prueba("entradaEj4CAle", "switch");
+		
+		System.out.println("Completo Minimo - Recoloreo");
+		prueba("entradaEj4CMin", "recoloreo");
+		
+		System.out.println("Completo Minimo - Switch");
+		prueba("entradaEj4CMin", "switch");
+		
+		System.out.println("Completo Maximo - Recoloreo");
+		prueba("entradaEj4CMax", "recoloreo");
+	
+		System.out.println("Completo Maximo - Switch");
+		prueba("entradaEj4CMax", "switch");
+		
+		
+		// RUEDA
+
+		System.out.println("Rueda Maxima - Recoloreo");
+		prueba("entradaEj4RMax", "recoloreo");
+		
+		System.out.println("Rueda Maxima - Switch");
+		prueba("entradaEj4RMax", "switch");
+		
+		System.out.println("Rueda Minima - Recoloreo");
+		prueba("entradaEj4RMin", "recoloreo");
+
+		System.out.println("Rueda Minima - Switch");
+		prueba("entradaEj4RMin", "switch");		
+		
+		System.out.println("Rueda Aleatoria - Recoloreo");
+		prueba("entradaEj4RAle", "recoloreo");
+		
+		System.out.println("Rueda Aleatoria - Switch");
+		prueba("entradaEj4RAle", "switch");
+	
+		// ARBOL
+		
+		System.out.println("Arbol Maxima - Recoloreo");
+		prueba("entradaEj4AMax", "recoloreo");
+		
+		System.out.println("Arbol Maxima - Switch");
+		prueba("entradaEj4AMax", "switch");
+		
+		
+		System.out.println("Arbol Minima - Recoloreo");
+		prueba("entradaEj4AMin", "recoloreo");
+		
+		System.out.println("Arbol Minima - Switch");
+		prueba("entradaEj4AMin", "switch");
+		
+		
+		System.out.println("Arbol Aleatoria - Recoloreo");
+		prueba("entradaEj4AAle", "recoloreo");
+		
+		System.out.println("Arbol Aleatoria - Switch");
+		prueba("entradaEj4AAle", "switch");
+				
 	}
 
 }
