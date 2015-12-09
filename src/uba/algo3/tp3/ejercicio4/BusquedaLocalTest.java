@@ -198,11 +198,11 @@ public class BusquedaLocalTest {
 	{
 		Parser p = new Parser();
 		GrafoMaterias g = p.parse(name);
-		Integer iteraciones = 5000;
 		int conflictos = PintarPrimerColor(g);//ListColoringGoloso.solve(g).size();
 		System.out.println("Conflictos originales: " + conflictos);
-		System.out.println("Conflictos restantes: " + BusquedaLocal.mejorarSolucion(g, iteraciones, iteraciones,heuristica));
+		System.out.println("Conflictos restantes: " + BusquedaLocal.mejorarSolucion(g, conflictos, conflictos,heuristica));
 	}
+	
 	@Test
 	public void testPruebas() throws IOException {
 		Parser p = new Parser();
@@ -262,12 +262,32 @@ public class BusquedaLocalTest {
 		System.out.println("Arbol Minima - Switch");
 		prueba("entradaEj4AMin", "switch");
 		
-		
 		System.out.println("Arbol Aleatoria - Recoloreo");
 		prueba("entradaEj4AAle", "recoloreo");
 		
 		System.out.println("Arbol Aleatoria - Switch");
 		prueba("entradaEj4AAle", "switch");
+		
+		// ARBOL BINARIO
+		System.out.println("Arbol Binaria Maxima - Recoloreo");
+		prueba("entradaEj4ABMax", "recoloreo");
+		
+		System.out.println("Arbol Binaria Maxima - Switch");
+		prueba("entradaEj4ABMax", "switch");
+		
+		
+		System.out.println("Arbol Binaria Minima - Recoloreo");
+		prueba("entradaEj4ABMin", "recoloreo");
+		
+		System.out.println("Arbol Binaria Minima - Switch");
+		prueba("entradaEj4ABMin", "switch");
+		
+		System.out.println("Arbol Binaria Aleatoria - Recoloreo");
+		prueba("entradaEj4ABAle", "recoloreo");
+		
+		System.out.println("Arbol Binaria Aleatoria - Switch");
+		prueba("entradaEj4ABAle", "switch");
+		
 				
 	}
 

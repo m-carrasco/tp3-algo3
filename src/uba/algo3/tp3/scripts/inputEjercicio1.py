@@ -8,8 +8,10 @@ def generarInputPeorCaso(n, name):
     m = (n*(n-1))/2
     c = 2
     f.write(str(n) + " " + str(m) + " " + str(c) + "\n")
+    j = 0
     for i in range(0, n):
-        listaColores = [1, 2]
+        listaColores = [j, j+1]
+        j = j+2
         f.write(str(2) + " " + str(listaColores).replace('[', '').replace(']','').replace(', ', ' ') + "\n")
     
     for i in range(0, n):
@@ -22,7 +24,7 @@ def generarInputPeorCaso(n, name):
 
 
 
-for i in range(100, 650, 50):
+for i in range(100, 850, 100):
     generarInputPeorCaso(i, "entradaPeorEj1N"+ str(i)+"LC2.in")
 
 # LC = 6 N=4..11 EXPONENCIAL

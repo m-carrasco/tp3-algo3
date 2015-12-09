@@ -37,7 +37,7 @@ public class TwoListColoringTest {
 			System.out.println("N LC Tiempo promedio");
 			
 			// iteramos por cada caso
-			for (Integer i = 100; i <= 600; i = i + 50)
+			for (Integer i = 100; i <= 800; i = i + 100)
 			{
 				String filename = "entradaPeorEj1N" + i+"LC2";
 				GrafoMaterias original = p.parse(filename);
