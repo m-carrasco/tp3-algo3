@@ -174,7 +174,7 @@ public class BusquedaLocalTest {
 				{
 					if (!conflictos[vecino])
 					{
-						if(g.getNodo(idxNodo).getColorPintado() == g.getNodo(vecino).getColorPintado()) //hay conflicto
+						if(g.getNodo(idxNodo).getColorPintado().equals(g.getNodo(vecino).getColorPintado())) //hay conflicto
 						{	
 							conflictivas++;
 						}
@@ -201,6 +201,86 @@ public class BusquedaLocalTest {
 		int conflictos = PintarPrimerColor(g);//ListColoringGoloso.solve(g).size();
 		System.out.println("Conflictos originales: " + conflictos);
 		System.out.println("Conflictos restantes: " + BusquedaLocal.mejorarSolucion(g, conflictos, conflictos,heuristica));
+	}
+	
+	// Corre it veces greedy sobre el grafo temp y lo restaura en cada iteracion.
+	public void run(Integer it, GrafoMaterias g, String heuristica)
+	{
+		for (Integer j = 0; j < it; j++)
+		{
+			int conflictos = PintarPrimerColor(g);
+			BusquedaLocal.mejorarSolucion(g, conflictos, conflictos,heuristica);
+		}
+	}
+	
+	@Test 
+	public void testComparacion() throws IOException
+	{
+		Parser p = new Parser();
+		
+		Integer it = 100;
+		
+				
+		System.out.println("Arbol Binario Recoloreo");
+		prueba("entradaEj4ABAleN512", "recoloreo");
+		System.out.println("Arbol Binario Switch");
+		prueba("entradaEj4ABAleN512", "switch");
+		
+		System.out.println("Completo Recoloreo");
+		prueba("entradaEj4CAleN100", "recoloreo");
+		System.out.println("Completo Switch");
+		prueba("entradaEj4CAleN100", "switch");
+		
+		System.out.println("Rueda Recoloreo");
+		prueba("entradaEj4RAleN512", "recoloreo");
+		System.out.println("Rueda Switch");
+		prueba("entradaEj4RAleN512", "switch");
+		
+		GrafoMaterias original = p.parse("entradaEj4RAleN512");
+		run( it, original, "switch");
+		long inicio = System.currentTimeMillis();
+		run( it, original, "switch");
+		Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println("Promedio para Rueda Aleatoria - Switch: " + delta);
+		
+		
+		original = p.parse("entradaEj4RAleN512");
+		run( it, original, "recoloreo");
+		inicio = System.currentTimeMillis();
+		run( it, original, "recoloreo");
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println("Promedio para Rueda Aleatoria - Recoloreo: " + delta);
+		
+		original = p.parse("entradaEj4CAleN100");
+		run( it, original, "recoloreo");
+		inicio = System.currentTimeMillis();
+		run( it, original, "recoloreo");
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println("Promedio para Completo Aleatoria - Recoloreo: " + delta);
+
+		original = p.parse("entradaEj4CAleN100");
+		run( it, original, "switch");
+		inicio = System.currentTimeMillis();
+		run( it, original, "switch");
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println("Promedio para Completo Aleatoria - Switch: " + delta);
+		
+		original = p.parse("entradaEj4ABAleN512");
+		run( it, original, "switch");
+		inicio = System.currentTimeMillis();
+		run( it, original, "switch");
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println("Promedio para AB Aleatoria - Switch: " + delta);
+		
+		original = p.parse("entradaEj4ABAleN512");
+		run( it, original, "recoloreo");
+		inicio = System.currentTimeMillis();
+		run( it, original, "recoloreo");
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println("Promedio para AB Aleatoria - Recoloreo: " + delta);
+	
+
+		
 	}
 	
 	@Test

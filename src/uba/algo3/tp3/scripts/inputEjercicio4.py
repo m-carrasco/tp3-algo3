@@ -209,6 +209,7 @@ def generarRuedaMaxima(name):
     for i in range(0, n):
         listaColores = random.sample([1,2,3,4,5,6],6)
         f.write(str(len(listaColores)) + " " + str(listaColores).replace('[', '').replace(']','').replace(', ', ' ') + "\n")
+
        
     f.write("1 2" + "\n")
     f.write("2 3" + "\n")
@@ -248,6 +249,50 @@ def generarRuedaMaxima(name):
     f.write("0 17" + "\n")  
     f.write("0 18" + "\n")  
     f.write("0 19" + "\n")      
+    f.close()
+
+def generarRuedaAleatoriaN(name, n):
+    f = open(name, 'w')
+    c = 3
+    m=2*(n-1)
+    f.write(str(n) + " " + str(m) + " " + str(c) + "\n")
+    repertorio = [x for x in range(1,7)]
+    for i in range(0, n):
+        listaColores = random.sample(repertorio, random.randint(3,6))
+        f.write(str(len(listaColores)) + " " + str(listaColores).replace('[', '').replace(']','').replace(', ', ' ') + "\n")
+ 
+	
+    ady = ["0 " + str(x) for x in range(1, n)]
+    for arista in ady:  
+        f.write(arista + "\n")
+
+    ady = [str(x) + " " + str(x+1) for x in range(1, n-1)]
+    for arista in ady:  
+        f.write(arista + "\n")
+
+    f.write(str(n-1) + " 1" + "\n")
+
+    f.close()
+
+def generarCompletoAleatorioN(name, n):
+    f = open(name, 'w')
+    m = (n*(n-1))/2
+    c = 2
+    f.write(str(n) + " " + str(m) + " " + str(c) + "\n")
+    j = 0
+
+
+    repertorio = [x for x in range(1,n*2+1)]
+    for i in range(0, n):
+        listaColores = random.sample(repertorio, random.randint(n, n*2))
+        f.write(str(len(listaColores)) + " " + str(listaColores).replace('[', '').replace(']','').replace(', ', ' ') + "\n")
+    
+    for i in range(0, n):
+        ady = [str(i) + " " + str(x) for x in range(i+1, n)]
+        #ady = [str(i) + " " + str(i + 1)]        
+        for arista in ady:  
+            f.write(arista + "\n")
+
     f.close()
 
 def generarRuedaAleatoria(name):
@@ -307,8 +352,8 @@ def generarArbolBinarioMinimo(nombre, nivel, nivelMax):
     f = open(nombre, 'w')
 
     c = 3
-    n=(2^nivelMax)-1
-    m=(2^(nivelMax-1) - 1)*2
+    n=(2**nivelMax)-1
+    m=(2**(nivelMax-1) - 1)*2
 
     f.write(str(n) + " " + str(m) + " " + str(c) + "\n")
 
@@ -326,8 +371,8 @@ def generarArbolBinarioMaximo(nombre, nivel, nivelMax):
     f = open(nombre, 'w')
 
     c = 3
-    n=(2^nivelMax)-1
-    m=(2^(nivelMax-1) - 1)*2
+    n=(2**nivelMax)-1
+    m=(2**(nivelMax-1) - 1)*2
 
     f.write(str(n) + " " + str(m) + " " + str(c) + "\n")
 
@@ -346,8 +391,8 @@ def generarArbolBinarioAleatorio(nombre, nivel, nivelMax):
     f = open(nombre, 'w')
 
     c = 3
-    n=(2^nivelMax)-1
-    m=(2^(nivelMax-1) - 1)*2
+    n=(2**nivelMax)-1
+    m=(2**(nivelMax-1) - 1)*2
 
     f.write(str(n) + " " + str(m) + " " + str(c) + "\n")
 
@@ -383,3 +428,12 @@ generarCompletoAleatorio("entradaEj4CAle.in")
 generarRuedaMinima("entradaEj4RMin.in")
 generarRuedaMaxima("entradaEj4RMax.in")
 generarRuedaAleatoria("entradaEj4RAle.in")
+
+
+generarRuedaAleatoriaN("entradaEj4RAleN512.in", 512)
+generarArbolBinarioAleatorio("entradaEj4ABAleN512.in", 1, 9)
+generarCompletoAleatorioN("entradaEj4CAleN100.in", 100)
+
+generarCompletoAleatorioN("entradaEj4CAleN50.in", 50)
+generarCompletoAleatorioN("entradaEj4CAleN5A.in", 5)
+generarCompletoAleatorioN("entradaEj4CAleN5B.in", 5)

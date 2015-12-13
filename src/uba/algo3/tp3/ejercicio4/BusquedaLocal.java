@@ -144,8 +144,11 @@ public class BusquedaLocal {
 				// busco conflictos... Elijo el color que menos conflictos me generó
 				//O(M*C)
 				int id = cola.poll();
+				// candidato posible inicial
 				Integer colorMenosConf = g.getNodo(id).getColorPintado();
-				int menorConflicto =g.getNodo(id).getVecinos().size()+1;
+				// cantidad de conflictos maxima de un color, para poder inicializar
+				int menorConflicto =g.getNodo(id).getVecinos().size();
+				// conflictos que produce el color pintado
 				int conflictosOriginales=0; 
 				for(Integer color : g.getNodo(id).getColores()){
 					int conflictos=0;
@@ -157,6 +160,7 @@ public class BusquedaLocal {
 					}
 					if(color.equals(g.getNodo(id).getColorPintado()))
 					{
+						
 						conflictosOriginales=conflictos;
 					}
 					
@@ -165,12 +169,15 @@ public class BusquedaLocal {
 						menorConflicto=conflictos;
 						colorMenosConf=color;
 					}
+					
 				}
 					
 				if(menorConflicto<conflictosOriginales)
 				{
 					g.getNodo(id).setColorPintado(colorMenosConf);
-					return conf - conflictosOriginales + menorConflicto;
+					int conflictoMejorado = conf - conflictosOriginales + menorConflicto;
+											
+					return conflictoMejorado;
 				}
 				//O(M)
 	
@@ -203,8 +210,8 @@ public class BusquedaLocal {
 				
 			if(tipo == "switch")
 				res=switchNodos(g,conflictos);
-				
-			if(res>=conflictos)
+			
+			if(res == conflictos)
 			{
 				return res;
 			}
