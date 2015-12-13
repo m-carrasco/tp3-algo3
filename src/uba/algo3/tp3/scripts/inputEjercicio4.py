@@ -295,6 +295,31 @@ def generarCompletoAleatorioN(name, n):
 
     f.close()
 
+
+def generarCompletoAleatorioNC(name, n, c):
+    f = open(name, 'w')
+    m = (n*(n-1))/2
+    c = 2
+    f.write(str(n) + " " + str(m) + " " + str(c) + "\n")
+    j = 0
+
+
+   
+    for i in range(0, n):
+    	repertorio = [x for x in range(0,c)]
+    	repertorio.remove(i%c)
+        listaColores = [i % c] + repertorio
+        f.write(str(len(listaColores)) + " " + str(listaColores).replace('[', '').replace(']','').replace(', ', ' ') + "\n")
+    
+    for i in range(0, n):
+        ady = [str(i) + " " + str(x) for x in range(i+1, n)]
+        #ady = [str(i) + " " + str(i + 1)]        
+        for arista in ady:  
+            f.write(arista + "\n")
+
+    f.close()
+
+
 def generarRuedaAleatoria(name):
     f = open(name, 'w')
     c = 3
@@ -437,3 +462,11 @@ generarCompletoAleatorioN("entradaEj4CAleN100.in", 100)
 generarCompletoAleatorioN("entradaEj4CAleN50.in", 50)
 generarCompletoAleatorioN("entradaEj4CAleN5A.in", 5)
 generarCompletoAleatorioN("entradaEj4CAleN5B.in", 5)
+
+
+generarCompletoAleatorioNC("entradaEj4CN100C10.in", 100, 10)
+generarCompletoAleatorioNC("entradaEj4CN200C10.in", 200, 10)
+generarCompletoAleatorioNC("entradaEj4CN300C10.in", 300, 10)
+generarCompletoAleatorioNC("entradaEj4CN400C10.in", 400, 10)
+generarCompletoAleatorioNC("entradaEj4CN500C10.in", 500, 10)
+
