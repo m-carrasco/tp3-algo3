@@ -19,6 +19,74 @@ public class BusquedaLocalTest {
 	private static final Integer NARANJA = 3;
 	private static final Integer VIOLETA = 4;
 	
+	/*
+Ejercicio4 variando n Switch
+N M LC Tiempo promedio
+100 4950 10 11.15
+200 19900 10 67.2
+300 44850 10 246.23
+400 79800 10 627.65
+500 124750 10 1226.0
+*/	@Test
+	public void testVariandoNSwitch() throws IOException
+	{
+		Parser p = new Parser();
+		
+		Integer it = 100;
+		
+		System.out.println("Ejercicio4 variando n Switch");
+		System.out.println("N M LC Tiempo promedio");
+		
+		// iteramos por cada caso
+		for (Integer i = 100; i <= 500; i = i + 100)
+		{
+			String filename = "entradaEj4CN" + i +"C10";
+			
+			GrafoMaterias original = p.parse(filename);
+					
+			// warmup
+			run( it, original, "switch");
+
+			long inicio = System.currentTimeMillis();
+			
+			run( it, original, "switch");
+			
+			Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+			System.out.println(i + " " + i*(i-1)/2 +" " + 10 + " "  + delta);
+		}	
+		
+	}
+	
+	@Test
+	public void testVariandoNRecoloreo() throws IOException
+	{
+		Parser p = new Parser();
+		
+		Integer it = 100;
+		
+		System.out.println("Ejercicio4 variando n recoloreo");
+		System.out.println("N M LC Tiempo promedio");
+		
+		// iteramos por cada caso
+		for (Integer i = 100; i <= 500; i = i + 100)
+		{
+			String filename = "entradaEj4CN" + i +"C10";
+			
+			GrafoMaterias original = p.parse(filename);
+					
+			// warmup
+			run( it, original, "recoloreo");
+
+			long inicio = System.currentTimeMillis();
+			
+			run( it, original, "recoloreo");
+			
+			Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+			System.out.println(i + " " + i*(i-1)/2 +" " + 10 + " "  + delta);
+		}	
+		
+	}
+	
 	@Test
 	public void testSwitchNodos() {
 		Nodo n0 = new Nodo();
