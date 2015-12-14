@@ -1,5 +1,7 @@
 package uba.algo3.tp3.ejercicio5_euleriano;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 
 import org.junit.Test;
@@ -22,7 +24,7 @@ public class CasosEjercicio5 {
 		System.out.println("N Tiempo promedio Errores");
 		
 		// iteramos por cada caso
-		for (Integer i = 101; i <= 701; i = i + 100)
+		for (Integer i = 1001; i <= 1601; i = i + 100)
 		{
 			String filename = "entradaEj5EuImpar" + i ;
 			System.out.println(filename);
@@ -33,10 +35,10 @@ public class CasosEjercicio5 {
 
 			long inicio = System.currentTimeMillis();
 			
-			int res = runGoloso( it, original);
+			assertEquals(runGoloso( it, original), 0);
 			
 			Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
-			System.out.println("Goloso " + i + " " + delta + " " + res);
+			System.out.println("Goloso " + i + " " + delta);
 			
 			Integer it2=1;
 			original = p.parse(filename);
@@ -45,15 +47,15 @@ public class CasosEjercicio5 {
 			inicio = System.currentTimeMillis();
 			
 			
-			runListColoring(it2, original);
+			boolean satisfacible = runListColoring(it2, original);
 			
 			delta = (System.currentTimeMillis() - inicio) / it2.doubleValue();
-			System.out.println("ListColoring " + i + " " + delta + " " + res);
-			
-			
+			System.out.println("ListColoring " + i + " " + delta);//+ " " + res);
+			if (!satisfacible)
+				System.out.println("Esta instancia no es satisfacible según backtracking.");
 			
 		}
-		for (Integer i = 99; i <= 699; i = i + 100)
+		for (Integer i = 999; i <= 1599; i = i + 100)
 		{
 			String filename = "entradaEj5EuPar" + i ;
 			System.out.println(filename);
@@ -77,15 +79,63 @@ public class CasosEjercicio5 {
 			inicio = System.currentTimeMillis();
 			
 			
-			runListColoring(it2, original);
+			boolean satisfacible = runListColoring(it2, original);
 			
 			delta = (System.currentTimeMillis() - inicio) / it2.doubleValue();
-			System.out.println("ListColoring " + i + " " + delta + " " + res);
+			System.out.println("ListColoring " + i + " " + delta);//  + " " + res);
+			if (!satisfacible)
+				System.out.println("Esta instancia no es satisfacible según backtracking.");
 			
 		}	
 	}
 
-	
+	@Test
+	public void testGolosoDeMas() throws IOException {
+		Parser p = new Parser();
+		
+		Integer it = 1000;
+		
+		System.out.println("Ejercicio5 Impares");
+		System.out.println("N Tiempo promedio Errores");
+		
+		// iteramos por cada caso
+		for (Integer i = 2001; i <= 5001; i = i + 1000)
+		{
+			String filename = "entradaEj5EuImpar" + i ;
+			System.out.println(filename);
+			GrafoMaterias original = p.parse(filename);
+					
+			// warmup
+			runGoloso( it, original);
+
+			long inicio = System.currentTimeMillis();
+			
+			assertEquals(runGoloso( it, original), 0);
+			
+			Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+			System.out.println("Goloso " + i + " " + delta);
+			
+			
+		}
+		for (Integer i = 1999; i <= 4999; i = i + 1000)
+		{
+			String filename = "entradaEj5EuPar" + i ;
+			System.out.println(filename);
+			GrafoMaterias original = p.parse(filename);
+					
+			// warmup
+			runGoloso( it, original);
+
+			long inicio = System.currentTimeMillis();
+			
+			int res = runGoloso( it, original);
+			
+			Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+			System.out.println("Goloso " + i + " " + delta + " " + res);
+			
+			
+		}	
+	}
 	
 	public int runGoloso(Integer it, GrafoMaterias g)
 	{
@@ -99,14 +149,14 @@ public class CasosEjercicio5 {
 		return res;
 	}
 	
-	public int runListColoring(Integer it, GrafoMaterias g)
+	public boolean runListColoring(Integer it, GrafoMaterias g)
 	{
-		int res=0;
+		boolean satisfacible = false;
 		for (Integer j = 0; j < it; j++)
 		{
-			ListColoring.solve(g);
+			satisfacible = ListColoring.solve(g) != null;
 			
 		}
-		return res;
+		return satisfacible;
 	}
 }

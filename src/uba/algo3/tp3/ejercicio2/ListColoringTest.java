@@ -36,6 +36,9 @@ public class ListColoringTest {
 			}
 		}
 	}
+	
+
+	
 	@Test 
 	public void testrtPeorCasoFijoLC() throws IOException
 	{
