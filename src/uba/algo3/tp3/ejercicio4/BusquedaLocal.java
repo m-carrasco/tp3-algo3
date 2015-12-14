@@ -103,6 +103,7 @@ public class BusquedaLocal {
 						
 						if(nuevosConflictos < viejosConflictos) // vale la pena hacer el switch
 						{
+							System.out.println("Encontre mejora.");
 							actual.setColorPintado(suColor);
 							vecino.setColorPintado(miColor);
 							return conf - viejosConflictos + nuevosConflictos;

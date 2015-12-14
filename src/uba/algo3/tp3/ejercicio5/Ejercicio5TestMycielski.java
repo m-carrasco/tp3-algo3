@@ -13,6 +13,93 @@ import uba.algo3.tp3.ejercicio3.ListColoringGoloso;
 import uba.algo3.tp3.ejercicio4.BusquedaLocal;
 import uba.algo3.tp3.parser.Parser;
 
+/*
+ * 
+ * 
+ * Goloso & Recoloreo: Tiempos promedios y conflictos restantes para cada instancia de Mycielski (empezando desde 4).
+entradaEj5MycielskiN4
+0
+0.205
+entradaEj5MycielskiN5
+0
+0.1
+entradaEj5MycielskiN6
+0
+0.1
+entradaEj5MycielskiN7
+0
+0.3
+entradaEj5MycielskiN8
+0
+1.05
+entradaEj5MycielskiN9
+5
+4.585
+entradaEj5MycielskiN10
+11
+12.065
+entradaEj5MycielskiN11
+17
+46.185
+entradaEj5MycielskiN12
+21
+339.0
+entradaEj5MycielskiN13
+90
+2583.86
+Goloso: Tiempos promedios y conflictos restantes para cada instancia de Mycielski (empezando desde 4).
+entradaEj5MycielskiN4
+0
+0.005
+entradaEj5MycielskiN5
+0
+0.02
+entradaEj5MycielskiN6
+0
+0.07
+entradaEj5MycielskiN7
+0
+0.225
+entradaEj5MycielskiN8
+0
+0.82
+entradaEj5MycielskiN9
+5
+2.795
+entradaEj5MycielskiN10
+11
+9.575
+entradaEj5MycielskiN11
+25
+32.485
+entradaEj5MycielskiN12
+85
+110.15
+entradaEj5MycielskiN13
+291
+386.83
+Backtracking: Tiempos promedios para cada instancia de Mycielski (empezando desde 4).
+entradaEj5MycielskiN4
+160.25
+entradaEj5MycielskiN5
+250.0
+entradaEj5MycielskiN6
+383.0
+entradaEj5MycielskiN7
+1326.0
+entradaEj5MycielskiN8
+3638.25
+entradaEj5MycielskiN9
+9960.0
+entradaEj5MycielskiN10
+28095.75
+entradaEj5MycielskiN11
+99971.5
+entradaEj5MycielskiN12
+461593.0
+entradaEj5MycielskiN13
+
+ */
 public class Ejercicio5TestMycielski {
 
 	public Integer runGolosoHeuristica(Integer it, GrafoMaterias g, String heuristica)

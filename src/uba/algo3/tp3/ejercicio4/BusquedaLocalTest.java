@@ -45,11 +45,11 @@ N M LC Tiempo promedio
 			GrafoMaterias original = p.parse(filename);
 					
 			// warmup
-			run( it, original, "switch");
+			runHeuristica( it, original, "switch");
 
 			long inicio = System.currentTimeMillis();
 			
-			run( it, original, "switch");
+			runHeuristica( it, original, "switch");
 			
 			Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
 			System.out.println(i + " " + i*(i-1)/2 +" " + 10 + " "  + delta);
@@ -57,6 +57,15 @@ N M LC Tiempo promedio
 		
 	}
 	
+/*
+ * Ejercicio4 variando n recoloreo
+N M LC Tiempo promedio
+100 4950 10 0.69
+200 19900 10 1.45
+300 44850 10 3.42
+400 79800 10 6.32
+500 124750 10 9.79
+ */
 	@Test
 	public void testVariandoNRecoloreo() throws IOException
 	{
@@ -75,17 +84,239 @@ N M LC Tiempo promedio
 			GrafoMaterias original = p.parse(filename);
 					
 			// warmup
-			run( it, original, "recoloreo");
+			runHeuristica( it, original, "recoloreo");
 
 			long inicio = System.currentTimeMillis();
 			
-			run( it, original, "recoloreo");
+			runHeuristica( it, original, "recoloreo");
 			
 			Double delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
 			System.out.println(i + " " + i*(i-1)/2 +" " + 10 + " "  + delta);
 		}	
 		
 	}
+/*
+ * 
+ * Ejercicio4 variando c recoloreo
+N M LC Tiempo promedio
+200 19900 2 1.53
+200 19900 4 1.46
+200 19900 5 1.72
+200 19900 10 2.55
+200 19900 20 1.42
+200 19900 25 2.04
+200 19900 50 2.43
+200 19900 100 2.46
+200 19900 200 1.58
+
+	
+ */
+	@Test
+	public void testVariandoCRecoloreo() throws IOException
+	{
+		Parser p = new Parser();
+		
+		Integer it = 100;
+		
+		System.out.println("Ejercicio4 variando c recoloreo");
+		System.out.println("N M LC Tiempo promedio");
+	
+		String heuristica = "recoloreo";
+		String filename;
+		GrafoMaterias original;
+		long inicio;
+		Double delta;
+		
+		int i = 200;
+		
+		int c;
+		
+		c = 2;
+		filename = "entradaEj4CN200C2";
+		original = p.parse(filename);			
+		runHeuristica( it, original, heuristica);
+		inicio = System.currentTimeMillis();
+		runHeuristica( it, original, heuristica);
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println(i + " " + i*(i-1)/2 +" " + c + " "  + delta);
+		
+		c = 4;
+		filename = "entradaEj4CN200C4";
+		original = p.parse(filename);			
+		runHeuristica( it, original, heuristica);
+		inicio = System.currentTimeMillis();
+		runHeuristica( it, original, heuristica);
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println(i + " " + i*(i-1)/2 +" " + c + " "  + delta);
+		
+		c = 5;
+		filename = "entradaEj4CN200C5";
+		original = p.parse(filename);			
+		runHeuristica( it, original, heuristica);
+		inicio = System.currentTimeMillis();
+		runHeuristica( it, original, heuristica);
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println(i + " " + i*(i-1)/2 +" " + c + " "  + delta);
+		
+		
+		c = 10;
+		filename = "entradaEj4CN200C10";
+		original = p.parse(filename);			
+		runHeuristica( it, original, heuristica);
+		inicio = System.currentTimeMillis();
+		runHeuristica( it, original, heuristica);
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println(i + " " + i*(i-1)/2 +" " + c + " "  + delta);
+		
+		c = 20;
+		filename = "entradaEj4CN200C20";
+		original = p.parse(filename);			
+		runHeuristica( it, original, heuristica);
+		inicio = System.currentTimeMillis();
+		runHeuristica( it, original, heuristica);
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println(i + " " + i*(i-1)/2 +" " + c + " "  + delta);
+		
+		c = 25;
+		filename = "entradaEj4CN200C25";
+		original = p.parse(filename);			
+		runHeuristica( it, original, heuristica);
+		inicio = System.currentTimeMillis();
+		runHeuristica( it, original, heuristica);
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println(i + " " + i*(i-1)/2 +" " + c + " "  + delta);
+	
+		c = 50;
+		filename = "entradaEj4CN200C50";
+		original = p.parse(filename);			
+		runHeuristica( it, original, heuristica);
+		inicio = System.currentTimeMillis();
+		runHeuristica( it, original, heuristica);
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println(i + " " + i*(i-1)/2 +" " + c + " "  + delta);
+		
+		c = 100;
+		filename = "entradaEj4CN200C100";
+		original = p.parse(filename);			
+		runHeuristica( it, original, heuristica);
+		inicio = System.currentTimeMillis();
+		runHeuristica( it, original, heuristica);
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println(i + " " + i*(i-1)/2 +" " + c + " "  + delta);
+		
+		c = 200;
+		filename = "entradaEj4CN200C200";
+		original = p.parse(filename);			
+		runHeuristica( it, original, heuristica);
+		inicio = System.currentTimeMillis();
+		runHeuristica( it, original, heuristica);
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println(i + " " + i*(i-1)/2 +" " + c + " "  + delta);		
+	}
+	
+	@Test
+	public void testVariandoCSwitch() throws IOException
+	{
+		Parser p = new Parser();
+		
+		Integer it = 100;
+		
+		System.out.println("Ejercicio4 variando c switch");
+		System.out.println("N M LC Tiempo promedio");
+	
+		String heuristica = "switch";
+		String filename;
+		GrafoMaterias original;
+		long inicio;
+		Double delta;
+		
+		int i = 200;
+		
+		int c;
+		
+		c = 2;
+		filename = "entradaEj4CN200C2";
+		original = p.parse(filename);			
+		runHeuristica( it, original, heuristica);
+		inicio = System.currentTimeMillis();
+		runHeuristica( it, original, heuristica);
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println(i + " " + i*(i-1)/2 +" " + c + " "  + delta);
+		
+		c = 4;
+		filename = "entradaEj4CN200C4";
+		original = p.parse(filename);			
+		runHeuristica( it, original, heuristica);
+		inicio = System.currentTimeMillis();
+		runHeuristica( it, original, heuristica);
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println(i + " " + i*(i-1)/2 +" " + c + " "  + delta);
+		
+		c = 5;
+		filename = "entradaEj4CN200C5";
+		original = p.parse(filename);			
+		runHeuristica( it, original, heuristica);
+		inicio = System.currentTimeMillis();
+		runHeuristica( it, original, heuristica);
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println(i + " " + i*(i-1)/2 +" " + c + " "  + delta);
+		
+		
+		c = 10;
+		filename = "entradaEj4CN200C10";
+		original = p.parse(filename);			
+		runHeuristica( it, original, heuristica);
+		inicio = System.currentTimeMillis();
+		runHeuristica( it, original, heuristica);
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println(i + " " + i*(i-1)/2 +" " + c + " "  + delta);
+		
+		c = 20;
+		filename = "entradaEj4CN200C20";
+		original = p.parse(filename);			
+		runHeuristica( it, original, heuristica);
+		inicio = System.currentTimeMillis();
+		runHeuristica( it, original, heuristica);
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println(i + " " + i*(i-1)/2 +" " + c + " "  + delta);
+		
+		c = 25;
+		filename = "entradaEj4CN200C25";
+		original = p.parse(filename);			
+		runHeuristica( it, original, heuristica);
+		inicio = System.currentTimeMillis();
+		runHeuristica( it, original, heuristica);
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println(i + " " + i*(i-1)/2 +" " + c + " "  + delta);
+	
+		c = 50;
+		filename = "entradaEj4CN200C50";
+		original = p.parse(filename);			
+		runHeuristica( it, original, heuristica);
+		inicio = System.currentTimeMillis();
+		runHeuristica( it, original, heuristica);
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println(i + " " + i*(i-1)/2 +" " + c + " "  + delta);
+		
+		c = 100;
+		filename = "entradaEj4CN200C100";
+		original = p.parse(filename);			
+		runHeuristica( it, original, heuristica);
+		inicio = System.currentTimeMillis();
+		runHeuristica( it, original, heuristica);
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println(i + " " + i*(i-1)/2 +" " + c + " "  + delta);
+		
+		c = 200;
+		filename = "entradaEj4CN200C200";
+		original = p.parse(filename);			
+		runHeuristica( it, original, heuristica);
+		inicio = System.currentTimeMillis();
+		runHeuristica( it, original, heuristica);
+		delta = (System.currentTimeMillis() - inicio) / it.doubleValue();
+		System.out.println(i + " " + i*(i-1)/2 +" " + c + " "  + delta);		
+	}
+
 	
 	@Test
 	public void testSwitchNodos() {
@@ -278,6 +509,20 @@ N M LC Tiempo promedio
 		{
 			int conflictos = PintarPrimerColor(g);
 			BusquedaLocal.mejorarSolucion(g, conflictos, conflictos,heuristica);
+		}
+	}
+	
+	public void runHeuristica(Integer it, GrafoMaterias g, String heuristica)
+	{
+		for (Integer j = 0; j < it; j++)
+		{
+			Integer conflictos = PintarPrimerColor(g);
+			
+			if(heuristica == "recoloreo")
+				BusquedaLocal.recolorearNodo(g,conflictos);
+				
+			if(heuristica == "switch")
+				BusquedaLocal.switchNodos(g,conflictos);
 		}
 	}
 	

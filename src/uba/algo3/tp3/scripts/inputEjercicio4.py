@@ -470,3 +470,14 @@ generarCompletoAleatorioNC("entradaEj4CN300C10.in", 300, 10)
 generarCompletoAleatorioNC("entradaEj4CN400C10.in", 400, 10)
 generarCompletoAleatorioNC("entradaEj4CN500C10.in", 500, 10)
 
+
+generarCompletoAleatorioNC("entradaEj4CN200C2.in", 200, 2)
+generarCompletoAleatorioNC("entradaEj4CN200C4.in", 200, 4)
+generarCompletoAleatorioNC("entradaEj4CN200C5.in", 200, 5)
+generarCompletoAleatorioNC("entradaEj4CN200C10.in", 200, 10)
+generarCompletoAleatorioNC("entradaEj4CN200C20.in", 200, 20)
+generarCompletoAleatorioNC("entradaEj4CN200C25.in", 200, 25)
+generarCompletoAleatorioNC("entradaEj4CN200C50.in", 200, 50)
+generarCompletoAleatorioNC("entradaEj4CN200C100.in", 200, 100)
+generarCompletoAleatorioNC("entradaEj4CN200C200.in", 200, 200)
+

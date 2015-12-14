@@ -69,7 +69,7 @@ def entradaEj5Mycielski(n, file, resultados):
 m = myciel(1, dict())
 
 for i in range(2,15):
-    entradaEj5Mycielski(i, "entradaEj5MycielskiN"+str(i-1)+".in", m)
+    entradaEj5Mycielski(i-1, "entradaEj5MycielskiN"+str(i-1)+".in", m)
     print "Ya imprimi el " + str(i-1) + "\n"
     m = myciel(i,m)
 
